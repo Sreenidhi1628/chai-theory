@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chai Theory — Built By Sreenidhi | Masala Chai · Filter Coffee · Street Food</title>
+  <meta name="description" content="A high-key daylight ode to Indian street culture & botanical alchemy. Artisanal masala chai, slow-brewed South Indian filter coffee, and elevated street food. Built by Sreenidhi.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+
+  <!-- Google Fonts: Fraunces & Cormorant Garamond (Serif) + Inter (Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body class="high-key-theme">
+
+  <!-- 2-3% Noise / Grain Canvas Overlay -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- Custom Ring Cursor -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- A. Preloader (<1.5s) -->
+  <div class="preloader" id="preloader" role="dialog" aria-label="Loading Chai Theory">
+    <div class="preloader-content">
+      <div class="preloader-kicker">BUILT BY SREENIDHI</div>
+      <h1 class="preloader-title" id="preloaderTitle">
+        <span>C</span><span>H</span><span>A</span><span>I</span>
+        <span class="space"></span>
+        <span>T</span><span>H</span><span>E</span><span>O</span><span>R</span><span>Y</span>
+      </h1>
+      <div class="preloader-bar-wrap">
+        <div class="preloader-bar" id="preloaderBar"></div>
+      </div>
+      <div class="preloader-status">BREWING AT 98°C</div>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a href="#hero" class="brand-mark magnetic-target" id="brandLogo">
+        <span class="brand-primary">CHAI THEORY</span>
+        <span class="brand-sub">BUILT BY SREENIDHI</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#coffee" class="nav-link magnetic-target">COFFEE</a>
+        <a href="#thali" class="nav-link magnetic-target">THE THALI</a>
+        <a href="#street-food" class="nav-link magnetic-target">STREET FOOD</a>
+        <a href="#sweets" class="nav-link magnetic-target">SWEETS</a>
+        <a href="#fusion" class="nav-link magnetic-target">FUSION</a>
+        <a href="#gallery" class="nav-link magnetic-target">TEXTURES</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="sound-toggle magnetic-target" id="soundToggle" title="Toggle Ambient Cafe Sounds" aria-label="Toggle Sound">
+          <span class="sound-icon">🔈</span>
+          <span class="sound-label">ATMOSPHERE</span>
+        </button>
+        <a href="#cta" class="nav-btn magnetic-target" id="headerReserveBtn">
+          <span>RESERVE TABLE</span>
+          <div class="btn-fill"></div>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Scroll Wrapper (Lenis target) -->
+  <main id="smooth-wrapper">
+
+    <!-- B. Hero Section -->
+    <section class="section hero-section" id="hero">
+      <div class="hero-bg-container" id="heroBg">
+        <video class="media-video hero-video" id="heroChaiVideo" autoplay muted loop playsinline poster="/assets/photos/img-kulhad-hero.jpg">
+          <source src="/assets/videos/hero-chai-pour.mp4" type="video/mp4">
+          <source src="/assets/video/hero-chai-pour.mp4" type="video/mp4">
+        </video>
+        <!-- Warm-white placeholder fallback div labeled in code without breaking layout -->
+        <div class="warm-white-fallback hero-fallback" data-label="hero-chai-pour.mp4">
+          <img src="/assets/photos/img-kulhad-hero.jpg" alt="Artisanal Kulhad Masala Chai" class="fallback-img parallax-hero-img">
+          <div class="steam-ambient-canvas" id="steamCanvas"></div>
+        </div>
+        <div class="hero-scrim"></div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-kicker-pill" id="heroKicker">
+          <span class="pill-dot"></span>
+          <span>MASALA CHAI · FILTER COFFEE · STREET FOOD</span>
+        </div>
+
+        <h1 class="hero-title" id="heroTitle">
+          <span class="line"><span class="char">C</span><span class="char">H</span><span class="char">A</span><span class="char">I</span></span>
+          <span class="line line-indent"><span class="char">T</span><span class="char">H</span><span class="char">E</span><span class="char">O</span><span class="char">R</span><span class="char">Y</span></span>
+        </h1>
+
+        <div class="hero-tagline-wrap" id="heroTagline">
+          <p class="hero-subtext">
+            A daylight ode to slow-boiled Assam teas, single-origin chicory roasts, and the vibrant alchemy of the Indian street.
+          </p>
+          <div class="hero-credits">
+            <span class="credit-badge">DESIGNED &amp; BUILT BY SREENIDHI</span>
+            <span class="credit-divider">/</span>
+            <span class="credit-badge">EST. 2026</span>
+          </div>
+        </div>
+
+        <div class="hero-scroll-cue" id="heroScrollCue">
+          <div class="mouse-icon">
+            <div class="mouse-wheel"></div>
+          </div>
+          <span class="cue-text">SCROLL TO EXPERIENCE</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- C. "Our Coffee" — Filter Coffee Showcase -->
+    <section class="section coffee-section" id="coffee">
+      <div class="container coffee-grid">
+        <div class="coffee-media-col">
+          <div class="media-card-wrapper coffee-card-wrap">
+            <video class="media-video coffee-video" id="filterCoffeeVideo" autoplay muted loop playsinline poster="/assets/photos/img-filter-coffee.jpg">
+              <source src="/assets/videos/filter-coffee-pour.mp4" type="video/mp4">
+              <source src="/assets/video/filter-coffee-pour.mp4" type="video/mp4">
+            </video>
+            <!-- Graceful warm-white placeholder -->
+            <div class="warm-white-fallback coffee-fallback" data-label="filter-coffee-pour.mp4">
+              <img src="/assets/photos/img-filter-coffee.jpg" alt="South Indian Filter Coffee" class="fallback-img">
+              <div class="decoction-pour-graphic">
+                <div class="pour-stream"></div>
+                <div class="froth-bubble-cluster"></div>
+              </div>
+            </div>
+            <div class="media-badge">TRADITIONAL BRASS DABARAH</div>
+          </div>
+        </div>
+
+        <div class="coffee-content-col">
+          <div class="section-tag" style="color: var(--color-coffee);">THE BREW RITUAL</div>
+          <h2 class="section-heading heading-coffee" id="coffeeHeading">
+            SLOW BREWED.<br>
+            <span class="heading-italic">DECOCTION PULLED.</span>
+          </h2>
+          <p class="section-description">
+            Hand-roasted peaberry Arabica from the misty slopes of Chikmagalur, steeped in gravity brass percolators for seven uninterrupted hours. Aerated by hand in high arcs to crown a velvety, caramel crema froth.
+          </p>
+
+          <div class="stat-pills-row">
+            <div class="stat-pill">
+              <span class="stat-num">87°C</span>
+              <span class="stat-label">DECOCTION PULL</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-num">85:15</span>
+              <span class="stat-label">ARABICA / CHICORY</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-num">SINCE '26</span>
+              <span class="stat-label">SREENIDHI ROAST</span>
+            </div>
+          </div>
+
+          <div class="quote-card">
+            <span class="quote-mark">“</span>
+            <p>Every meter of air during the pull cools the coffee by exactly one degree, perfecting the froth before it meets your lips.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BONUS: Kulhad Orbit Section (Features Kulhad_cup_with_orbiting_spices.mp4) -->
+    <section class="section spice-orbit-section" id="spices">
+      <div class="container orbit-header-wrap">
+        <div class="section-tag" style="color: var(--color-saffron);">BOTANICAL ARCHITECTURE</div>
+        <h2 class="section-heading heading-orbit">
+          SIX SPICES IN <span class="heading-italic">GRAVITATIONAL HARMONY.</span>
+        </h2>
+      </div>
+
+      <div class="orbit-interactive-stage" id="orbitStage">
+        <div class="orbit-center-media">
+          <video class="media-video orbit-video" id="orbitVideo" autoplay muted loop playsinline poster="/assets/photos/img-kulhad-hero.jpg">
+            <source src="/assets/videos/Kulhad_cup_with_orbiting_spices.mp4" type="video/mp4">
+            <source src="/assets/video/Kulhad_cup_with_orbiting_spices.mp4" type="video/mp4">
+          </video>
+          <!-- Graceful fallback -->
+          <div class="warm-white-fallback orbit-fallback" data-label="Kulhad_cup_with_orbiting_spices.mp4">
+            <img src="/assets/photos/img-kulhad-hero.jpg" alt="Kulhad Cup" class="orbit-core-img">
+          </div>
+        </div>
+
+        <!-- Orbiting Spice Badges that spin on scroll -->
+        <div class="orbit-ring" id="orbitRing">
+          <div class="orbit-node node-1" data-spice="GREEN CARDAMOM">
+            <span class="node-dot"></span>
+            <span class="node-text">Idukki Cardamom (Green)</span>
+          </div>
+          <div class="orbit-node node-2" data-spice="CINNAMON QUILLS">
+            <span class="node-dot"></span>
+            <span class="node-text">Ceylon True Cinnamon</span>
+          </div>
+          <div class="orbit-node node-3" data-spice="STAR ANISE">
+            <span class="node-dot"></span>
+            <span class="node-text">Star Anise (Botanical)</span>
+          </div>
+          <div class="orbit-node node-4" data-spice="CLOVES">
+            <span class="node-dot"></span>
+            <span class="node-text">Zanzibar Clove Buds</span>
+          </div>
+          <div class="orbit-node node-5" data-spice="DRY GINGER">
+            <span class="node-dot"></span>
+            <span class="node-text">Sun-Dried Ginger</span>
+          </div>
+          <div class="orbit-node node-6" data-spice="TELLICHERRY PEPPER">
+            <span class="node-dot"></span>
+            <span class="node-text">Tellicherry Black Peppercorn</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- D1. "What We Serve" — THE EXPLODED SCROLL MOMENT (HERO INTERACTION 1: THALI) -->
+    <section class="section exploded-thali-section" id="thali">
+      <div class="exploded-pin-container" id="thaliPinContainer">
+        
+        <div class="exploded-top-header">
+          <div class="section-tag" style="color: var(--color-thali);">WHAT WE SERVE · HERO INTERACTION</div>
+          <h2 class="exploded-main-title">
+            THE GRAND THALI <span class="accent-thali">DECONSTRUCTED.</span>
+          </h2>
+          <div class="scrub-instruction">
+            <span class="scrub-indicator-icon">↕</span>
+            <span>SCROLL DOWN TO ASSEMBLE · SCROLL UP TO EXPLODE</span>
+          </div>
+        </div>
+
+        <div class="exploded-stage-box" id="thaliStage">
+          <!-- Scrubbed Video Player -->
+          <video class="media-video scrub-video" id="explodedThaliVideo" muted playsinline preload="auto" poster="/assets/photos/img-spices-flatlay.jpg">
+            <source src="/assets/videos/exploded-thali.mp4" type="video/mp4">
+            <source src="/assets/video/exploded-thali.mp4" type="video/mp4">
+          </video>
+
+          <!-- Interactive Fallback Assembly Stage (responds to scrub when video loads or fallback) -->
+          <div class="warm-white-fallback thali-fallback" data-label="exploded-thali.mp4">
+            <div class="assembly-arena" id="thaliArena">
+              <!-- Center Platter Base -->
+              <div class="thali-platter-base" id="thaliBase">
+                <!-- Real Steel Plate Image -->
+                <img src="/images/thali/thali-plate.png" alt="Thali Steel Plate" class="thali-plate-img" id="thaliPlateImg">
+
+                <!-- Food items on plate -->
+                <div class="katori-slot slot-dosa" id="katoriDosa">
+                  <img src="/images/thali/masala-dosa.png" alt="Masala Dosa" class="thali-food-img dosa-img">
+                </div>
+                <div class="katori-slot slot-sambar" id="katoriSambar">
+                  <img src="/images/thali/sambar.png" alt="Drumstick Sambar" class="thali-food-img sambar-img">
+                </div>
+                <div class="katori-slot slot-vada" id="katoriVada">
+                  <img src="/images/thali/medu-vada.png" alt="Medu Vada" class="thali-food-img vada-img">
+                </div>
+                <div class="katori-slot slot-chutney" id="katoriChutney">
+                  <img src="/images/thali/coconut-chutney.png" alt="Coconut Chutney" class="thali-food-img chutney-img">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Staggered Saffron Pop Labels that pop when settling -->
+          <div class="pop-label-anchor label-dosa" id="labelDosa">
+            <div class="label-pill">
+              <span class="label-idx">01</span>
+              <span class="label-title">MASALA DOSA</span>
+              <span class="label-desc">Ghee-Crisped Fermented Rice Crepe</span>
+            </div>
+            <div class="label-line"></div>
+          </div>
+
+          <div class="pop-label-anchor label-sambar" id="labelSambar">
+            <div class="label-pill">
+              <span class="label-idx">02</span>
+              <span class="label-title">DRUMSTICK SAMBAR</span>
+              <span class="label-desc">Slow-Simmered Toor Dal &amp; Tamarind</span>
+            </div>
+            <div class="label-line"></div>
+          </div>
+
+          <div class="pop-label-anchor label-vada" id="labelVada">
+            <div class="label-pill">
+              <span class="label-idx">03</span>
+              <span class="label-title">MEDU VADA</span>
+              <span class="label-desc">Black Lentil Golden Donut Fritter</span>
+            </div>
+            <div class="label-line"></div>
+          </div>
+
+          <div class="pop-label-anchor label-chutney" id="labelChutney">
+            <div class="label-pill">
+              <span class="label-idx">04</span>
+              <span class="label-title">COCONUT CHUTNEY</span>
+              <span class="label-desc">Fresh Grated with Mustard &amp; Curry Leaves</span>
+            </div>
+            <div class="label-line"></div>
+          </div>
+
+          <!-- Scroll Progress Tracker Bar -->
+          <div class="scrub-progress-hud">
+            <div class="scrub-hud-label">ASSEMBLY INTEGRITY</div>
+            <div class="scrub-hud-track">
+              <div class="scrub-hud-fill" id="thaliProgressFill"></div>
+            </div>
+            <div class="scrub-hud-val" id="thaliProgressVal">0%</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- D2. THE EXPLODED SCROLL MOMENT (HERO INTERACTION 2: SAMOSA) -->
+    <section class="section exploded-samosa-section" id="street-food">
+      <div class="exploded-pin-container" id="samosaPinContainer">
+        
+        <div class="exploded-top-header">
+          <div class="section-tag" style="color: var(--color-street);">STREET FOOD ELEVATED</div>
+          <h2 class="exploded-main-title heading-samosa">
+            CRISP CRUST. <span class="accent-samosa">SPICED SOUL.</span>
+          </h2>
+          <div class="scrub-instruction">
+            <span class="scrub-indicator-icon">↕</span>
+            <span>SCRUB-LINKED FRACTURE &amp; COMPOSITION</span>
+          </div>
+        </div>
+
+        <div class="exploded-stage-box" id="samosaStage">
+          <video class="media-video scrub-video" id="explodedSamosaVideo" muted playsinline preload="auto" poster="/assets/photos/img-samosa.jpg">
+            <source src="/assets/videos/exploded-samosa.mp4" type="video/mp4">
+            <source src="/assets/video/exploded-samosa.mp4" type="video/mp4">
+          </video>
+
+          <!-- Interactive Fallback Assembly Stage -->
+          <div class="warm-white-fallback samosa-fallback" data-label="exploded-samosa.mp4">
+            <div class="samosa-arena" id="samosaArena">
+              <img src="/assets/photos/img-samosa.jpg" alt="Artisanal Samosa" class="samosa-hero-img" id="samosaHeroImg">
+              <div class="pastry-shard shard-1" id="shard1"></div>
+              <div class="pastry-shard shard-2" id="shard2"></div>
+              <div class="pastry-shard shard-3" id="shard3"></div>
+            </div>
+          </div>
+
+          <!-- Pop Labels in Chili Red -->
+          <div class="pop-label-anchor label-samosa-pastry" id="labelPastry">
+            <div class="label-pill pill-chili">
+              <span class="label-idx">A</span>
+              <span class="label-title">AJWAIN SHORT-CRUST</span>
+              <span class="label-desc">Flaky carom seed pastry shell</span>
+            </div>
+          </div>
+
+          <div class="pop-label-anchor label-samosa-core" id="labelCore">
+            <div class="label-pill pill-chili">
+              <span class="label-idx">B</span>
+              <span class="label-title">ROASTED POTATO &amp; PEA</span>
+              <span class="label-desc">Pounded coriander, ginger &amp; green chili</span>
+            </div>
+          </div>
+
+          <div class="pop-label-anchor label-samosa-chutney" id="labelMintDip">
+            <div class="label-pill pill-chili">
+              <span class="label-idx">C</span>
+              <span class="label-title">MINT-TAMARIND DICHOTOMY</span>
+              <span class="label-desc">Sweet jaggery against raw crushed mint</span>
+            </div>
+          </div>
+
+          <!-- Progress HUD -->
+          <div class="scrub-progress-hud">
+            <div class="scrub-hud-label">ELEVATION LEVEL</div>
+            <div class="scrub-hud-track">
+              <div class="scrub-hud-fill fill-chili" id="samosaProgressFill"></div>
+            </div>
+            <div class="scrub-hud-val" id="samosaProgressVal">0%</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- E. "Our Sweets" -->
+    <section class="section sweets-section" id="sweets">
+      <div class="container sweets-layout">
+        
+        <div class="sweets-header-row">
+          <div>
+            <div class="section-tag" style="color: var(--color-sweets);">MITHAI CRAFT</div>
+            <h2 class="section-heading heading-sweets" id="sweetsHeading">
+              OUR SWEETS. <span class="heading-italic">SUGAR &amp; SPICE.</span>
+            </h2>
+          </div>
+          <div class="sweets-intro-copy">
+            Traditional halwai secrets preserved with uncompromised precision: pure Buffalo milk solids, freshly scraped Madagascar vanilla, and saffron threads from Pampore.
+          </div>
+        </div>
+
+        <div class="sweets-macro-showcase">
+          <div class="sweets-macro-video-box">
+            <video class="media-video" id="sweetsMacroVideo" autoplay muted loop playsinline poster="/assets/photos/img-jalebi.jpg">
+              <source src="/assets/videos/sweets-macro.mp4" type="video/mp4">
+              <source src="/assets/video/sweets-macro.mp4" type="video/mp4">
+            </video>
+            <!-- Graceful fallback -->
+            <div class="warm-white-fallback sweets-fallback" data-label="sweets-macro.mp4">
+              <img src="/assets/photos/img-jalebi.jpg" alt="Macro Sweets Glistening" class="fallback-img">
+            </div>
+            <div class="macro-hud-tag">MACRO 100mm T2.9 · SYRUP SURFACE TENSION</div>
+          </div>
+        </div>
+
+        <!-- Horizontal scrub-linked card gallery featuring img-jalebi.jpg and img-gulab-jamun.jpg -->
+        <div class="sweets-cards-track" id="sweetsTrack">
+          <div class="sweet-card" id="sweetCard1">
+            <div class="sweet-img-box">
+              <img src="/assets/photos/img-jalebi.jpg" alt="Golden Saffron Jalebi" class="sweet-img">
+              <span class="sweet-pill">HOT OFF THE KADHAI</span>
+            </div>
+            <div class="sweet-details">
+              <div class="sweet-num">01 / JALEBI</div>
+              <h3 class="sweet-name">Saffron Spiral Jalebi</h3>
+              <p class="sweet-desc">Fermented wild batter, piped by master halwais directly into bubbling desi ghee, soaked in warm saffron-cardamom nectar.</p>
+              <div class="sweet-meta">
+                <span>FERMENTATION: 24 HRS</span>
+                <span>DESI GHEE DEEP-FRY</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sweet-card" id="sweetCard2">
+            <div class="sweet-img-box">
+              <img src="/assets/photos/img-gulab-jamun.jpg" alt="Rose Petal Gulab Jamun" class="sweet-img">
+              <span class="sweet-pill">WARM CARDAMOM SYRUP</span>
+            </div>
+            <div class="sweet-details">
+              <div class="sweet-num">02 / GULAB JAMUN</div>
+              <h3 class="sweet-name">Silver Vark Gulab Jamun</h3>
+              <p class="sweet-desc">Pillowy khoya dumplings infused with green cardamom powder, swimming in aromatic Damask rose petal sugar glaze.</p>
+              <div class="sweet-meta">
+                <span>KHOYA CORE</span>
+                <span>EDIBLE SILVER FOIL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- F. "Cold & Fusion Drinks" -->
+    <section class="section fusion-section" id="fusion">
+      <div class="container">
+        
+        <div class="fusion-header">
+          <div class="section-tag">SUMMER EXPERIMENTS</div>
+          <h2 class="fusion-split-heading">
+            <span class="split-mango" id="mangoHeading">MANGO LASSI</span>
+            <span class="split-amp">&amp;</span>
+            <span class="split-matcha" id="matchaHeading">MATCHA CHAI FUSION</span>
+          </h2>
+          <p class="fusion-subtext">Where Punjab's sun-drenched orchards collide with Uji's shade-grown ceremonial green tea leaves.</p>
+        </div>
+
+        <div class="fusion-split-stage">
+          
+          <!-- Side A: Mango Lassi -->
+          <div class="fusion-card mango-side" id="mangoCard">
+            <div class="fusion-img-wrap">
+              <img src="/assets/photos/img-mango-lassi.jpg" alt="Creamy Mango Lassi" class="fusion-img">
+              <div class="flavor-tag tag-mango">RATNAGIRI ALPHONSO</div>
+            </div>
+            <div class="fusion-info">
+              <h3 class="fusion-drink-name color-mango">The Royal Alphonso Lassi</h3>
+              <p class="fusion-desc">Cultured whole-milk dahi churned with pure Ratnagiri Alphonso mango pulp, crushed green cardamom seeds, and roasted pistachios.</p>
+              <div class="fusion-traits">
+                <span class="trait">Dense &amp; Silky</span>
+                <span class="trait">Naturally Sweet</span>
+                <span class="trait">Chilled Clay Serve</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Center Shared Video Panel -->
+          <div class="fusion-center-video">
+            <div class="center-video-wrap">
+              <video class="media-video" id="lassiMatchaVideo" autoplay muted loop playsinline poster="/assets/photos/img-matcha-latte.jpg">
+                <source src="/assets/videos/lassi-matcha-pour.mp4" type="video/mp4">
+                <source src="/assets/video/lassi-matcha-pour.mp4" type="video/mp4">
+              </video>
+              <!-- Graceful fallback -->
+              <div class="warm-white-fallback fusion-fallback" data-label="lassi-matcha-pour.mp4">
+                <img src="/assets/photos/img-matcha-latte.jpg" alt="Matcha Chai Layered Pour" class="fallback-img">
+              </div>
+              <div class="pour-stream-indicator">DUAL POUR · 4°C SERVE</div>
+            </div>
+          </div>
+
+          <!-- Side B: Matcha Chai Fusion -->
+          <div class="fusion-card matcha-side" id="matchaCard">
+            <div class="fusion-img-wrap">
+              <img src="/assets/photos/img-matcha-latte.jpg" alt="Matcha Chai Fusion Latte" class="fusion-img">
+              <div class="flavor-tag tag-matcha">UJI CEREMONIAL · GRADE A</div>
+            </div>
+            <div class="fusion-info">
+              <h3 class="fusion-drink-name color-matcha">Ceremonial Matcha Chai</h3>
+              <p class="fusion-desc">First-harvest Kyoto matcha stone-whisked into chilled, spiced CTC tea steeped with crushed cloves, ginger, and oat cream.</p>
+              <div class="fusion-traits">
+                <span class="trait">Two-Tone Separation</span>
+                <span class="trait">Earthy Meets Spice</span>
+                <span class="trait">Slow Release Energy</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- G. Ingredient / Texture Gallery (Horizontal Parallax Gallery) -->
+    <section class="section gallery-section" id="gallery">
+      <div class="gallery-pin-wrapper" id="galleryPinWrapper">
+        
+        <div class="gallery-header-sticky">
+          <div class="section-tag" style="color: var(--color-charcoal);">TACTILE BOTANY</div>
+          <h2 class="gallery-title">
+            THE TEXTURES OF <span class="heading-italic">RITUAL.</span>
+          </h2>
+        </div>
+
+        <div class="horizontal-strip-container" id="horizontalStrip">
+          
+          <!-- Slide 1 -->
+          <div class="gallery-item-card" data-caption="CRISP">
+            <div class="card-inner-img">
+              <img src="/assets/photos/img-samosa.jpg" alt="Crispy Pastry" class="gallery-photo">
+            </div>
+            <div class="gallery-caption-overlay">
+              <span class="caption-tag">TEXTURE 01</span>
+              <h3 class="caption-word">CRISP</h3>
+              <p class="caption-note">Flaky ajwain pastry shattering upon touch.</p>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="gallery-item-card" data-caption="CRUNCH">
+            <div class="card-inner-img">
+              <img src="/assets/photos/img-pani-puri.jpg" alt="Pani Puri Crunch" class="gallery-photo">
+            </div>
+            <div class="gallery-caption-overlay">
+              <span class="caption-tag">TEXTURE 02</span>
+              <h3 class="caption-word">CRUNCH</h3>
+              <p class="caption-note">Thin semolina puri bursting with cold spiced mint water.</p>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="gallery-item-card" data-caption="AROMA">
+            <div class="card-inner-img">
+              <img src="/assets/photos/img-spices-flatlay.jpg" alt="Spice Aromatic Flatlay" class="gallery-photo">
+            </div>
+            <div class="gallery-caption-overlay">
+              <span class="caption-tag">TEXTURE 03</span>
+              <h3 class="caption-word">AROMA</h3>
+              <p class="caption-note">Volatile essential oils crackling under mortar pressure.</p>
+            </div>
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="gallery-item-card" data-caption="ORIGIN">
+            <div class="card-inner-img">
+              <img src="/assets/photos/img-tea-leaves.jpg" alt="CTC Loose Tea Leaves" class="gallery-photo">
+            </div>
+            <div class="gallery-caption-overlay">
+              <span class="caption-tag">TEXTURE 04</span>
+              <h3 class="caption-word">ORIGIN</h3>
+              <p class="caption-note">Assam Brahmaputra river valley loose CTC pekoe curls.</p>
+            </div>
+          </div>
+
+          <!-- Slide 5 -->
+          <div class="gallery-item-card" data-caption="RITUAL">
+            <div class="card-inner-img">
+              <img src="/assets/photos/img-cutting-chai.jpg" alt="Mumbai Cutting Glasses" class="gallery-photo">
+            </div>
+            <div class="gallery-caption-overlay">
+              <span class="caption-tag">TEXTURE 05</span>
+              <h3 class="caption-word">RITUAL</h3>
+              <p class="caption-note">Half-glass cutting shared on bustling roadside corners.</p>
+            </div>
+          </div>
+
+          <!-- Slide 6 (Poster Feature) -->
+          <div class="gallery-item-card poster-card" data-caption="IDENTITY">
+            <div class="card-inner-img">
+              <img src="/assets/photos/img-poster.jpg" alt="Chai Theory Brand Poster" class="gallery-photo">
+            </div>
+            <div class="gallery-caption-overlay">
+              <span class="caption-tag">IDENTITY</span>
+              <h3 class="caption-word">BOTANY</h3>
+              <p class="caption-note">Built by Sreenidhi — The philosophy of modern chai.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- H. Finale / CTA & Reservation -->
+    <section class="section finale-section" id="cta">
+      <div class="finale-video-backdrop" id="finaleBackdrop">
+        <video class="media-video finale-video" id="finaleTableVideo" autoplay muted loop playsinline poster="/assets/photos/img-cutting-chai.jpg">
+          <source src="/assets/videos/finale-table-spread.mp4" type="video/mp4">
+          <source src="/assets/video/finale-table-spread.mp4" type="video/mp4">
+        </video>
+        <!-- Graceful fallback -->
+        <div class="warm-white-fallback finale-fallback" data-label="finale-table-spread.mp4">
+          <img src="/assets/photos/img-cutting-chai.jpg" alt="Finale Table Spread" class="fallback-img parallax-finale-img">
+        </div>
+        <div class="finale-scrim"></div>
+      </div>
+
+      <div class="container finale-content">
+        <div class="finale-kicker">CHAI THEORY · SANCTUARY</div>
+        <h2 class="finale-heading" id="finaleHeading">
+          GATHER AT<br>
+          <span class="heading-chili">THE TABLE.</span>
+        </h2>
+        <p class="finale-subtext">
+          Whether you crave an 8:00 AM solo meditation over steaming filter coffee or a twilight gathering over deconstructed thalis and saffron jalebis — your seat is ready.
+        </p>
+
+        <!-- Large Chili Red Button with Fill Hover & Confetti celebration -->
+        <div class="cta-action-wrap">
+          <button class="cta-button-chili magnetic-target" id="reserveTableBtn">
+            <span class="btn-text">RESERVE YOUR TABLE</span>
+            <span class="btn-arrow">→</span>
+            <div class="btn-fill-chili"></div>
+          </button>
+          <div class="cta-note">INSTANT CONFIRMATION · NO BOOKING FEE</div>
+        </div>
+
+        <div class="opening-hours-card">
+          <div class="hours-col">
+            <span class="col-title">HOURS</span>
+            <span class="col-val">MON — SUN / 08:00 — 22:00</span>
+          </div>
+          <div class="hours-col">
+            <span class="col-title">LOCATION</span>
+            <span class="col-val">14 BAKERS ST · BANDRA WEST &amp; LONDON</span>
+          </div>
+          <div class="hours-col">
+            <span class="col-title">LIVE KITCHEN</span>
+            <span class="col-val"><span class="live-dot"></span> OPEN RIGHT NOW</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Minimal Footer: "Built by Sreenidhi | SN" -->
+      <footer class="site-footer">
+        <div class="container footer-content">
+          <div class="footer-left">
+            <span class="footer-brand">CHAI THEORY</span>
+            <span class="footer-author">Built by Sreenidhi | SN</span>
+          </div>
+          <div class="footer-center">
+            <span>HIGH-KEY DAYLIGHT BRAND SYSTEM · EST. 2026</span>
+          </div>
+          <div class="footer-right">
+            <a href="#hero" class="back-to-top magnetic-target" id="backToTop">
+              <span>BACK TO TOP</span>
+              <span class="top-arrow">↑</span>
+            </a>
+          </div>
+        </div>
+      </footer>
+    </section>
+
+  </main>
+
+  <!-- Interactive Reservation Modal -->
+  <div class="reservation-modal" id="reserveModal" aria-hidden="true" role="dialog" aria-labelledby="modalHeading">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-box">
+      <button class="modal-close-btn magnetic-target" id="modalCloseBtn" aria-label="Close Modal">✕</button>
+      
+      <div class="modal-header">
+        <span class="modal-kicker">CHAI THEORY TABLE EXPERIENCE</span>
+        <h3 class="modal-title" id="modalHeading">RESERVE YOUR CORNER</h3>
+        <p class="modal-desc">Select your preferred daylight slot for an artisanal tasting experience.</p>
+      </div>
+
+      <form class="reservation-form" id="reservationForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="guestName">YOUR NAME</label>
+            <input type="text" id="guestName" required placeholder="Sreenidhi">
+          </div>
+          <div class="form-group">
+            <label for="guestEmail">EMAIL ADDRESS</label>
+            <input type="email" id="guestEmail" required placeholder="sreenidhi@chaitheory.com">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="partySize">PARTY SIZE</label>
+            <select id="partySize" required>
+              <option value="1">Solo Connoisseur (1)</option>
+              <option value="2" selected>Duo Table (2)</option>
+              <option value="4">Culinary Circle (4)</option>
+              <option value="6">Grand Feast (6+)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="tastingExperience">EXPERIENCE</label>
+            <select id="tastingExperience" required>
+              <option value="chai-flight">Chai &amp; Street Food Pairing Flight</option>
+              <option value="thali-deconstructed">Deconstructed Thali Discovery</option>
+              <option value="filter-coffee">South Indian Decoction Tasting</option>
+              <option value="mithai-fusion">Artisanal Sweets &amp; Matcha</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resDate">DATE</label>
+            <input type="date" id="resDate" required value="2026-10-27">
+          </div>
+          <div class="form-group">
+            <label for="resTime">TIME SLOT</label>
+            <select id="resTime" required>
+              <option value="09:00">09:00 AM — Morning Steam</option>
+              <option value="11:30">11:30 AM — Daylight Brunch</option>
+              <option value="15:30">03:30 PM — Afternoon Cutting Chai</option>
+              <option value="18:30" selected>06:30 PM — Golden Hour Feasting</option>
+              <option value="20:30">08:30 PM — Twilight Sweets</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="modal-submit-btn magnetic-target" id="modalSubmitBtn">
+          <span>CONFIRM RESERVATION</span>
+          <div class="btn-fill-chili"></div>
+        </button>
+      </form>
+
+      <div class="booking-success-message" id="bookingSuccess" style="display: none;">
+        <div class="success-icon">✨</div>
+        <h4>YOUR TABLE IS RESERVED</h4>
+        <p>A confirmation pigeon (and email) has been dispatched. We look forward to welcoming you to Chai Theory.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vite entry script -->
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

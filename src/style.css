@@ -1,0 +1,2063 @@
+/* ==========================================================================
+   CHAI THEORY — BUILT BY SREENIDHI
+   High-Key Daylight Brand Visual System & Micro-Interaction Styling
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. DESIGN TOKENS & COLOR PALETTE
+   -------------------------------------------------------------------------- */
+:root {
+  /* Daylight Brand Colors */
+  --bg-color: #FAFAF8;            /* Pure bright off-white */
+  --bg-color-alt: #F4F3EE;        /* Delicate warm linen */
+  --bg-card: #FFFFFF;             /* Crisp daylight white */
+  --bg-card-warm: #F8F7F2;        /* Warm cream card */
+  --color-charcoal: #2B2320;      /* Warm Charcoal body text */
+  --color-charcoal-muted: #6B625E; /* Muted warm charcoal */
+  --border-light: rgba(43, 35, 32, 0.08);
+  --border-strong: rgba(43, 35, 32, 0.16);
+
+  /* Section Accent Palette (High contrast against off-white) */
+  --color-hero: #6B3F1D;          /* Chai Brown */
+  --color-coffee: #8A5A2B;        /* Roasted Tan */
+  --color-thali: #E38A2C;         /* Saffron Orange */
+  --color-street: #C23B22;        /* Chili Red */
+  --color-sweets: #D9A441;        /* Turmeric Gold */
+  --color-matcha: #5C8A3A;        /* Split Matcha Green */
+  --color-mango: #F2994A;         /* Split Mango Orange */
+  --color-chili: #C23B22;         /* Chili Red CTA */
+
+  /* Typography Stack */
+  --font-serif: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
+  --font-serif-sub: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Shadows & Depth */
+  --shadow-subtle: 0 4px 20px rgba(43, 35, 32, 0.04);
+  --shadow-card: 0 12px 40px rgba(43, 35, 32, 0.07);
+  --shadow-elevated: 0 24px 60px rgba(43, 35, 32, 0.12);
+
+  /* Transitions */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET & BASE
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  background-color: var(--bg-color);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: auto; /* Handled smoothly by Lenis */
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--color-charcoal);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  cursor: default;
+}
+
+/* Disable native cursor on pointer devices for custom ring cursor */
+@media (hover: hover) and (pointer: fine) {
+  body, a, button, input, select {
+    cursor: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. NOISE & GRAIN OVERLAY (2-3% Subtle Analog Texture)
+   -------------------------------------------------------------------------- */
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* --------------------------------------------------------------------------
+   4. CUSTOM MAGNETIC RING CURSOR
+   -------------------------------------------------------------------------- */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-charcoal);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--color-charcoal);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo), border-color 0.3s ease, background-color 0.3s ease, transform 0.15s ease-out;
+}
+
+.cursor-ring.cursor-hover {
+  width: 64px;
+  height: 64px;
+  border-color: var(--color-thali);
+  background-color: rgba(227, 138, 44, 0.08);
+}
+
+.cursor-ring.cursor-active {
+  width: 28px;
+  height: 28px;
+  border-color: var(--color-street);
+  background-color: rgba(194, 59, 34, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   5. A. PRELOADER (<1.5s FAST & IMPACTFUL)
+   -------------------------------------------------------------------------- */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-color);
+  z-index: 10002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: transform 0.8s var(--ease-out-expo), opacity 0.6s ease;
+}
+
+.preloader-content {
+  text-align: center;
+  max-width: 600px;
+  padding: 2rem;
+}
+
+.preloader-kicker {
+  font-size: 0.8rem;
+  letter-spacing: 0.35em;
+  color: var(--color-thali);
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+}
+
+.preloader-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--color-hero);
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.preloader-title span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.preloader-title .space {
+  width: 1.2rem;
+}
+
+.preloader-bar-wrap {
+  width: 240px;
+  height: 2px;
+  background-color: rgba(43, 35, 32, 0.1);
+  margin: 0 auto 1rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.preloader-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background-color: var(--color-thali);
+  transition: width 0.05s linear;
+}
+
+.preloader-status {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--color-charcoal-muted);
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   6. SITE HEADER & NAVIGATION
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1.5rem 3rem;
+  transition: padding 0.3s ease, background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.site-header.scrolled {
+  padding: 1rem 3rem;
+  background-color: rgba(250, 250, 248, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.header-inner {
+  max-width: 1800px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-mark {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand-primary {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-hero);
+}
+
+.brand-sub {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: var(--color-thali);
+  margin-top: 2px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.2rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--color-charcoal);
+  position: relative;
+  padding: 0.4rem 0;
+  transition: color 0.25s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 1.5px;
+  background-color: var(--color-hero);
+  transition: width 0.3s var(--ease-out-expo);
+}
+
+.nav-link:hover {
+  color: var(--color-hero);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.sound-toggle {
+  background: none;
+  border: 1px solid var(--border-strong);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--color-charcoal);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease;
+}
+
+.sound-toggle:hover {
+  border-color: var(--color-hero);
+  color: var(--color-hero);
+  background-color: rgba(107, 63, 29, 0.04);
+}
+
+.nav-btn {
+  position: relative;
+  text-decoration: none;
+  background-color: var(--color-charcoal);
+  color: #FAFAF8;
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  overflow: hidden;
+  display: inline-block;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-btn span {
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+.nav-btn .btn-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-chili);
+  transform: translateY(100%);
+  transition: transform 0.4s var(--ease-out-expo);
+  z-index: 1;
+}
+
+.nav-btn:hover .btn-fill {
+  transform: translateY(0%);
+}
+
+/* --------------------------------------------------------------------------
+   7. COMMON LAYOUT & UTILITIES
+   -------------------------------------------------------------------------- */
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 4vw;
+}
+
+.section {
+  position: relative;
+  width: 100%;
+  padding: 9vw 0;
+}
+
+.section-tag {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 5.5vw, 5.2rem);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--color-charcoal);
+  letter-spacing: -0.01em;
+  margin-bottom: 1.8rem;
+}
+
+.heading-italic {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.section-description {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--color-charcoal-muted);
+  max-width: 580px;
+  margin-bottom: 2.5rem;
+}
+
+/* Media Cards & Video Container */
+.media-card-wrapper {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: var(--bg-card-warm);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-light);
+}
+
+.media-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Warm-White Placeholder Fallback Divs labeled in code */
+.warm-white-fallback {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #F8F7F2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.fallback-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.media-badge {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  padding: 0.4rem 0.9rem;
+  background-color: rgba(250, 250, 248, 0.92);
+  backdrop-filter: blur(10px);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-charcoal);
+  border: 1px solid var(--border-light);
+  z-index: 3;
+}
+
+/* --------------------------------------------------------------------------
+   8. B. HERO SECTION (1920x1080 Reel Stop-the-Scroll Visual)
+   -------------------------------------------------------------------------- */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+}
+
+.hero-bg-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  transform: scale(1.05); /* Will zoom-out on scroll start */
+  will-change: transform;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(1.02) contrast(1.02);
+}
+
+.hero-fallback {
+  background-color: #F8F6F0;
+}
+
+.parallax-hero-img {
+  transform: scale(1.08);
+}
+
+.steam-ambient-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 70%, rgba(255, 255, 255, 0.25) 0%, transparent 50%);
+  animation: steamPulse 4s infinite ease-in-out;
+}
+
+@keyframes steamPulse {
+  0%, 100% { opacity: 0.3; transform: translateY(0) scale(1); }
+  50% { opacity: 0.6; transform: translateY(-15px) scale(1.05); }
+}
+
+.hero-scrim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(250, 250, 248, 0.4) 0%, rgba(250, 250, 248, 0.75) 50%, rgba(250, 250, 248, 0.98) 100%);
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 1300px;
+  padding: 0 4vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 6vh;
+}
+
+.hero-kicker-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1.3rem;
+  background-color: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(227, 138, 44, 0.35);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--color-thali); /* Saffron Orange */
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 18px rgba(227, 138, 44, 0.1);
+}
+
+.pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-thali);
+  box-shadow: 0 0 10px var(--color-thali);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(4.5rem, 9.5vw, 9.5rem);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--color-hero); /* Chai Brown #6B3F1D */
+  margin-bottom: 2.2rem;
+  user-select: none;
+}
+
+.hero-title .line {
+  display: block;
+}
+
+.hero-title .line-indent {
+  font-style: italic;
+  font-weight: 300;
+  margin-left: 1.5vw;
+}
+
+.hero-title .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(60px) rotate(4deg);
+}
+
+.hero-tagline-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  max-width: 680px;
+}
+
+.hero-subtext {
+  font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+  line-height: 1.6;
+  color: var(--color-charcoal);
+  font-weight: 400;
+}
+
+.hero-credits {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: var(--color-charcoal-muted);
+  font-weight: 600;
+}
+
+.hero-scroll-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 3.5rem;
+  opacity: 0.85;
+}
+
+.mouse-icon {
+  width: 22px;
+  height: 36px;
+  border: 1.8px solid var(--color-charcoal);
+  border-radius: 12px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.mouse-wheel {
+  width: 3px;
+  height: 7px;
+  background-color: var(--color-thali);
+  border-radius: 2px;
+  margin-top: 6px;
+  animation: wheelScroll 1.8s infinite ease-in-out;
+}
+
+@keyframes wheelScroll {
+  0% { transform: translateY(0); opacity: 1; }
+  75% { transform: translateY(12px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+.cue-text {
+  font-size: 0.68rem;
+  letter-spacing: 0.25em;
+  font-weight: 700;
+  color: var(--color-charcoal-muted);
+}
+
+/* --------------------------------------------------------------------------
+   9. C. "OUR COFFEE" — FILTER COFFEE SHOWCASE
+   -------------------------------------------------------------------------- */
+.coffee-section {
+  background-color: var(--bg-color);
+  padding: 8vw 0;
+}
+
+.coffee-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 5vw;
+  align-items: center;
+}
+
+.coffee-card-wrap {
+  aspect-ratio: 4 / 3.4;
+  height: 100%;
+}
+
+.heading-coffee {
+  color: var(--color-coffee); /* Roasted Tan #8A5A2B */
+}
+
+.stat-pills-row {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+
+.stat-pill {
+  padding: 1.1rem 1.4rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
+  box-shadow: var(--shadow-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.stat-num {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--color-coffee);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-charcoal-muted);
+}
+
+.quote-card {
+  border-left: 2px solid var(--color-coffee);
+  padding-left: 1.8rem;
+  position: relative;
+}
+
+.quote-mark {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  line-height: 0.5;
+  color: var(--color-coffee);
+  opacity: 0.35;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.quote-card p {
+  font-family: var(--font-serif-sub);
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--color-charcoal);
+}
+
+/* --------------------------------------------------------------------------
+   10. BONUS: KULHAD ORBIT SECTION (Kulhad_cup_with_orbiting_spices.mp4)
+   -------------------------------------------------------------------------- */
+.spice-orbit-section {
+  padding: 6vw 0;
+  background-color: var(--bg-color-alt);
+  position: relative;
+  overflow: hidden;
+}
+
+.orbit-header-wrap {
+  text-align: center;
+  max-width: 800px;
+  margin-bottom: 3rem;
+}
+
+.heading-orbit {
+  color: var(--color-hero);
+}
+
+.orbit-interactive-stage {
+  position: relative;
+  width: 700px;
+  height: 520px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orbit-center-media {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: var(--shadow-elevated);
+  border: 4px solid #FFFFFF;
+  position: relative;
+  z-index: 5;
+}
+
+.orbit-core-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.orbit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 500px;
+  margin-top: -250px;
+  margin-left: -250px;
+  border: 1.5px dashed rgba(227, 138, 44, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.orbit-node {
+  position: absolute;
+  padding: 0.5rem 0.9rem;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+  box-shadow: var(--shadow-subtle);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-charcoal);
+  white-space: nowrap;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.node-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-thali);
+  border-radius: 50%;
+}
+
+.node-1 { top: 4%; left: 45%; }
+.node-2 { top: 25%; right: -5%; }
+.node-3 { bottom: 20%; right: 0%; }
+.node-4 { bottom: -2%; left: 42%; }
+.node-5 { bottom: 25%; left: -6%; }
+.node-6 { top: 25%; left: -8%; }
+
+/* --------------------------------------------------------------------------
+   11. D1. "WHAT WE SERVE" — THE EXPLODED THALI (PINNED SCRUB HERO INTERACTION)
+   -------------------------------------------------------------------------- */
+.exploded-thali-section,
+.exploded-samosa-section {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  background-color: var(--bg-color);
+}
+
+.exploded-pin-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.5vh 4vw 2vh;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.exploded-top-header {
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.exploded-main-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.8vw, 3.8rem);
+  font-weight: 400;
+  color: var(--color-charcoal);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.accent-thali {
+  color: var(--color-thali); /* Saffron Orange #E38A2C */
+  font-style: italic;
+  font-weight: 300;
+}
+
+.accent-samosa {
+  color: var(--color-street); /* Chili Red #C23B22 */
+  font-style: italic;
+  font-weight: 300;
+}
+
+.scrub-instruction {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--color-charcoal-muted);
+  margin-top: 0.35rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 0.28rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-light);
+}
+
+.scrub-indicator-icon {
+  animation: bounceVertical 1.6s infinite ease-in-out;
+}
+
+@keyframes bounceVertical {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.exploded-stage-box {
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: calc(100vh - 135px);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  margin: 1vh 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scrub-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Thali Interactive Assembly Arena (Fallback & Graphic Layer) */
+.assembly-arena {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 3.8rem; /* Dedicated clearance so Assembly Integrity bar never overlaps food or plate */
+  background: radial-gradient(circle at center, #F5F1E8 0%, #EAE4D6 100%); /* Soft warm cream so white plate stays clearly visible */
+  box-sizing: border-box;
+}
+
+.thali-platter-base {
+  width: 480px;
+  height: 480px;
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.thali-plate-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  /* Single soft natural drop shadow under the white ceramic plate */
+  filter: drop-shadow(0 20px 38px rgba(43, 35, 32, 0.16)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+}
+
+.katori-slot {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  transition: transform 0.1s ease-out;
+  z-index: 5;
+}
+
+.thali-food-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0;
+  /* Soft realistic natural drop shadow under each food item */
+  filter: drop-shadow(0 12px 18px rgba(35, 25, 20, 0.28)) drop-shadow(0 3px 6px rgba(0, 0, 0, 0.12));
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Masala Dosa: centre, slightly smaller than now, with space between it and the plate rim */
+.slot-dosa {
+  width: 280px;
+  height: 86px;
+  top: 50%;
+  left: 50%;
+  margin-top: -43px;
+  margin-left: -140px;
+  z-index: 8;
+}
+
+/* Drumstick Sambar bowl: upper left of the plate, away from rim */
+.slot-sambar {
+  width: 120px;
+  height: 120px;
+  top: 48px;
+  left: 82px;
+  z-index: 6;
+}
+
+/* Medu Vada (two vadas): upper right, scaled up about 30% to match sambar in visual weight */
+.slot-vada {
+  width: 175px;
+  height: 84px;
+  top: 66px;
+  right: 70px;
+  z-index: 6;
+}
+
+/* Coconut Chutney bowl: bottom centre of the plate, away from rim */
+.slot-chutney {
+  width: 110px;
+  height: 110px;
+  bottom: 34px;
+  left: 50%;
+  margin-left: -55px;
+  z-index: 7;
+}
+
+/* Staggered Pop Labels in Saffron Orange (#E38A2C) */
+.pop-label-anchor {
+  position: absolute;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+  transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+}
+
+.pop-label-anchor.label-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.label-pill {
+  background-color: rgba(255, 255, 255, 0.96);
+  border: 1.5px solid var(--color-thali);
+  padding: 0.6rem 1.1rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(227, 138, 44, 0.22);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.label-idx {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: var(--color-thali);
+  letter-spacing: 0.2em;
+}
+
+.label-title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-charcoal);
+  letter-spacing: 0.05em;
+}
+
+.label-desc {
+  font-size: 0.72rem;
+  color: var(--color-charcoal-muted);
+}
+
+.label-dosa { top: 40%; left: 8%; }
+.label-sambar { top: 12%; left: 10%; }
+.label-vada { top: 12%; right: 10%; }
+.label-chutney { bottom: 15%; right: 12%; }
+
+/* Scroll Progress HUD */
+.scrub-progress-hud {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  padding: 0.45rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-subtle);
+  z-index: 30;
+}
+
+.scrub-hud-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--color-charcoal-muted);
+}
+
+.scrub-hud-track {
+  width: 140px;
+  height: 4px;
+  background-color: rgba(43, 35, 32, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.scrub-hud-fill {
+  height: 100%;
+  width: 0%;
+  background-color: var(--color-thali);
+  transition: width 0.05s linear;
+}
+
+.scrub-hud-fill.fill-chili {
+  background-color: var(--color-street);
+}
+
+.scrub-hud-val {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-charcoal);
+  min-width: 35px;
+  text-align: right;
+}
+
+/* --------------------------------------------------------------------------
+   12. D2. THE EXPLODED SCROLL MOMENT (HERO INTERACTION 2: SAMOSA)
+   -------------------------------------------------------------------------- */
+.heading-samosa {
+  color: var(--color-charcoal);
+}
+
+.samosa-arena {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #FFFFFF 0%, #FAF6F2 100%);
+}
+
+.samosa-hero-img {
+  max-width: 520px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.1s ease-out;
+}
+
+.pill-chili {
+  border-color: var(--color-street);
+  box-shadow: 0 8px 25px rgba(194, 59, 34, 0.2);
+}
+
+.pill-chili .label-idx {
+  color: var(--color-street);
+}
+
+.label-samosa-pastry { top: 18%; left: 10%; }
+.label-samosa-core { top: 52%; right: 10%; }
+.label-samosa-chutney { bottom: 16%; left: 14%; }
+
+/* --------------------------------------------------------------------------
+   13. E. "OUR SWEETS"
+   -------------------------------------------------------------------------- */
+.sweets-section {
+  background-color: var(--bg-color);
+  padding: 8vw 0;
+}
+
+.sweets-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.sweets-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 2rem;
+}
+
+.heading-sweets {
+  color: var(--color-sweets); /* Turmeric Gold #D9A441 */
+  margin-bottom: 0;
+}
+
+.sweets-intro-copy {
+  max-width: 480px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-charcoal-muted);
+}
+
+.sweets-macro-video-box {
+  width: 100%;
+  height: 480px;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-card);
+}
+
+.macro-hud-tag {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  padding: 0.4rem 0.9rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-sweets);
+}
+
+.sweets-cards-track {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3vw;
+}
+
+.sweet-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s ease;
+}
+
+.sweet-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.sweet-img-box {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.sweet-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out-expo);
+}
+
+.sweet-card:hover .sweet-img {
+  transform: scale(1.05);
+}
+
+.sweet-pill {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  padding: 0.35rem 0.8rem;
+  background-color: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--color-sweets);
+}
+
+.sweet-details {
+  padding: 2.2rem;
+}
+
+.sweet-num {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--color-sweets);
+  margin-bottom: 0.5rem;
+}
+
+.sweet-name {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--color-charcoal);
+  margin-bottom: 0.8rem;
+}
+
+.sweet-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-charcoal-muted);
+  margin-bottom: 1.5rem;
+}
+
+.sweet-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-charcoal-muted);
+  border-top: 1px solid var(--border-light);
+  padding-top: 1.2rem;
+}
+
+/* --------------------------------------------------------------------------
+   14. F. "COLD & FUSION DRINKS" (SPLIT PANELS)
+   -------------------------------------------------------------------------- */
+.fusion-section {
+  padding: 9vw 0;
+  background-color: var(--bg-color-alt);
+}
+
+.fusion-header {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 5rem;
+}
+
+.fusion-split-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.split-mango {
+  color: var(--color-mango); /* Mango Orange #F2994A */
+}
+
+.split-matcha {
+  color: var(--color-matcha); /* Matcha Green #5C8A3A */
+  font-style: italic;
+}
+
+.split-amp {
+  color: var(--color-charcoal-muted);
+  font-family: var(--font-serif-sub);
+  font-weight: 300;
+}
+
+.fusion-subtext {
+  font-size: 1.15rem;
+  color: var(--color-charcoal-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.fusion-split-stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2.5vw;
+  align-items: center;
+}
+
+.fusion-card {
+  background-color: #FFFFFF;
+  border-radius: 24px;
+  padding: 1.8rem;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-light);
+  transition: transform 0.4s var(--ease-out-expo);
+}
+
+.fusion-card:hover {
+  transform: translateY(-6px);
+}
+
+.fusion-img-wrap {
+  aspect-ratio: 1 / 1.1;
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 1.8rem;
+}
+
+.fusion-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.fusion-card:hover .fusion-img {
+  transform: scale(1.04);
+}
+
+.flavor-tag {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.tag-mango {
+  background-color: rgba(242, 153, 74, 0.92);
+  color: #FFFFFF;
+}
+
+.tag-matcha {
+  background-color: rgba(92, 138, 58, 0.92);
+  color: #FFFFFF;
+}
+
+.fusion-drink-name {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.color-mango { color: var(--color-mango); }
+.color-matcha { color: var(--color-matcha); }
+
+.fusion-desc {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--color-charcoal-muted);
+  margin-bottom: 1.4rem;
+}
+
+.fusion-traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.trait {
+  background-color: var(--bg-card-warm);
+  padding: 0.35rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-charcoal);
+}
+
+/* Center Shared Video */
+.fusion-center-video {
+  height: 100%;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+}
+
+.center-video-wrap {
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-card);
+}
+
+.pour-stream-indicator {
+  position: absolute;
+  top: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.4rem 0.9rem;
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--color-charcoal);
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   15. G. INGREDIENT / TEXTURE GALLERY (HORIZONTAL SCROLL)
+   -------------------------------------------------------------------------- */
+.gallery-section {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  background-color: var(--bg-color);
+  overflow: hidden;
+}
+
+.gallery-pin-wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  padding: 4vh 0;
+}
+
+.gallery-header-sticky {
+  padding: 0 5vw 2.5rem;
+}
+
+.gallery-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  font-weight: 400;
+  color: var(--color-charcoal);
+}
+
+.horizontal-strip-container {
+  display: flex;
+  gap: 2.5vw;
+  padding: 0 5vw;
+  will-change: transform;
+}
+
+.gallery-item-card {
+  flex-shrink: 0;
+  width: 440px;
+  height: 520px;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-card);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  transition: transform 0.4s var(--ease-out-expo);
+}
+
+.gallery-item-card:hover {
+  transform: translateY(-8px);
+}
+
+.card-inner-img {
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.gallery-item-card:hover .gallery-photo {
+  transform: scale(1.05);
+}
+
+.gallery-caption-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(250, 250, 248, 0.95) 75%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.caption-tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--color-thali);
+}
+
+.caption-word {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  letter-spacing: 0.05em;
+  color: var(--color-charcoal);
+}
+
+.caption-note {
+  font-size: 0.85rem;
+  color: var(--color-charcoal-muted);
+}
+
+.poster-card {
+  width: 380px;
+}
+
+/* --------------------------------------------------------------------------
+   16. H. FINALE / CTA & RESERVATION (CHILI RED ACCENT)
+   -------------------------------------------------------------------------- */
+.finale-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10vw 0 0;
+  overflow: hidden;
+  background-color: var(--bg-color);
+}
+
+.finale-video-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.finale-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(1.03) contrast(1.02);
+}
+
+.finale-scrim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(250, 250, 248, 0.9) 0%, rgba(250, 250, 248, 0.85) 50%, rgba(250, 250, 248, 0.98) 100%);
+}
+
+.finale-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.finale-kicker {
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  color: var(--color-street);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.finale-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  line-height: 0.95;
+  color: var(--color-charcoal);
+  margin-bottom: 2rem;
+}
+
+.heading-chili {
+  color: var(--color-street); /* Chili Red #C23B22 */
+  font-style: italic;
+  font-weight: 300;
+}
+
+.finale-subtext {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: var(--color-charcoal-muted);
+  max-width: 650px;
+  margin: 0 auto 3rem;
+}
+
+.cta-action-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 4.5rem;
+}
+
+.cta-button-chili {
+  position: relative;
+  background-color: var(--color-street);
+  color: #FFFFFF;
+  border: none;
+  padding: 1.3rem 3.2rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  box-shadow: 0 12px 35px rgba(194, 59, 34, 0.35);
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s ease;
+}
+
+.cta-button-chili:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 18px 45px rgba(194, 59, 34, 0.45);
+}
+
+.btn-arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.cta-button-chili:hover .btn-arrow {
+  transform: translateX(6px);
+}
+
+.btn-fill-chili {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #A82E18;
+  transform: translateY(100%);
+  transition: transform 0.4s var(--ease-out-expo);
+  z-index: 0;
+}
+
+.cta-button-chili:hover .btn-fill-chili {
+  transform: translateY(0);
+}
+
+.btn-text, .btn-arrow {
+  position: relative;
+  z-index: 1;
+}
+
+.cta-note {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--color-charcoal-muted);
+}
+
+.opening-hours-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-light);
+  border-radius: 18px;
+  padding: 1.8rem 2.5rem;
+  box-shadow: var(--shadow-subtle);
+  text-align: left;
+}
+
+.hours-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.col-title {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--color-charcoal-muted);
+}
+
+.col-val {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-charcoal);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #27AE60;
+  box-shadow: 0 0 8px #27AE60;
+}
+
+/* Site Footer */
+.site-footer {
+  position: relative;
+  z-index: 10;
+  border-top: 1px solid var(--border-light);
+  padding: 2.5rem 0;
+  background-color: rgba(250, 250, 248, 0.95);
+  margin-top: 6rem;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.footer-brand {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-hero);
+}
+
+.footer-author {
+  font-weight: 700;
+  color: var(--color-street);
+  letter-spacing: 0.1em;
+}
+
+.footer-center {
+  color: var(--color-charcoal-muted);
+  letter-spacing: 0.15em;
+  font-weight: 600;
+}
+
+.back-to-top {
+  text-decoration: none;
+  color: var(--color-charcoal);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s ease;
+}
+
+.back-to-top:hover {
+  color: var(--color-street);
+}
+
+/* --------------------------------------------------------------------------
+   17. INTERACTIVE RESERVATION MODAL
+   -------------------------------------------------------------------------- */
+.reservation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10005;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.reservation-modal.modal-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(43, 35, 32, 0.45);
+  backdrop-filter: blur(10px);
+}
+
+.modal-box {
+  position: relative;
+  z-index: 2;
+  background-color: #FFFFFF;
+  border-radius: 28px;
+  width: 90%;
+  max-width: 640px;
+  padding: 3.2rem;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+  transform: translateY(30px) scale(0.96);
+  transition: transform 0.4s var(--ease-out-expo);
+}
+
+.reservation-modal.modal-open .modal-box {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1.8rem;
+  right: 1.8rem;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--color-charcoal-muted);
+  padding: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  color: var(--color-street);
+}
+
+.modal-header {
+  margin-bottom: 2rem;
+}
+
+.modal-kicker {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  color: var(--color-street);
+}
+
+.modal-title {
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  color: var(--color-charcoal);
+  margin-top: 0.4rem;
+}
+
+.modal-desc {
+  font-size: 0.95rem;
+  color: var(--color-charcoal-muted);
+  margin-top: 0.4rem;
+}
+
+.reservation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--color-charcoal-muted);
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background-color: var(--bg-card-warm);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--color-charcoal);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--color-street);
+}
+
+.modal-submit-btn {
+  position: relative;
+  margin-top: 1rem;
+  background-color: var(--color-street);
+  color: #FFFFFF;
+  border: none;
+  padding: 1.1rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(194, 59, 34, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.modal-submit-btn span {
+  position: relative;
+  z-index: 2;
+}
+
+.booking-success-message {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.success-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.booking-success-message h4 {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--color-street);
+  margin-bottom: 0.8rem;
+}
+
+.booking-success-message p {
+  font-size: 1rem;
+  color: var(--color-charcoal-muted);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   18. RESPONSIVE BREAKPOINTS (Desktop 1920x1080 Optimized)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .fusion-split-stage {
+    grid-template-columns: 1fr;
+  }
+  .fusion-center-video {
+    min-height: 360px;
+  }
+  .sweets-cards-track {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .coffee-grid {
+    grid-template-columns: 1fr;
+  }
+  .site-header {
+    padding: 1.2rem 1.8rem;
+  }
+  .nav-links {
+    display: none;
+  }
+  .opening-hours-card {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+}

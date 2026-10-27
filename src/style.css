@@ -78,17 +78,20 @@ body {
 }
 
 /* Disable native cursor on pointer devices for custom ring cursor */
-@media (hover: hover) and (pointer: fine) {
+@media (min-width: 901px) and (hover: hover) and (pointer: fine) {
   body, a, button, input, select {
     cursor: none !important;
   }
 }
 
 /* Explicitly disable custom cursor on touch/mobile devices */
-@media (hover: none) and (pointer: coarse) {
+@media (max-width: 900px), (hover: none), (pointer: coarse) {
   .cursor-dot,
   .cursor-ring {
     display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
   body, a, button, input, select, .magnetic-target {
     cursor: auto !important;
@@ -376,6 +379,19 @@ body.menu-locked {
   position: relative;
   z-index: 2;
   transition: color 0.3s ease;
+}
+
+.btn-text-compact {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .btn-text-full {
+    display: none !important;
+  }
+  .btn-text-compact {
+    display: inline !important;
+  }
 }
 
 .nav-btn .btn-fill {
@@ -2371,97 +2387,130 @@ body.menu-locked {
     height: 68px;
   }
 
-  /* SPICE ORBIT SECTION */
+  /* SECTION SCROLL OFFSETS (NEVER OBSCURE HEADINGS BEHIND STICKY HEADER) */
+  section.section {
+    scroll-margin-top: 76px !important;
+  }
+
+  /* SPICE ORBIT SECTION (HERO 1) - PROMINENT & VISUALLY STUNNING */
   .spice-orbit-section {
-    padding: 3.5rem 0;
+    padding: 3rem 0 2.5rem !important;
   }
 
   .orbit-header-wrap {
-    margin-bottom: 1.5rem;
-    padding: 0 4vw;
+    margin-bottom: 1.5rem !important;
+    padding: 0 5vw !important;
+    text-align: center;
   }
 
   .orbit-interactive-stage {
-    width: 100%;
-    max-width: 100vw;
-    height: clamp(300px, 80vw, 420px);
-    margin: 0 auto;
-    overflow: hidden;
+    width: 100% !important;
+    max-width: 100vw !important;
+    height: clamp(340px, 86vw, 420px) !important;
+    margin: 0 auto !important;
+    position: relative !important;
+    overflow: visible !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .orbit-center-media {
-    width: clamp(86px, 24vw, 115px) !important;
-    height: clamp(86px, 24vw, 115px) !important;
-    border-width: 3px;
+    width: clamp(140px, 36vw, 175px) !important;
+    height: clamp(140px, 36vw, 175px) !important;
+    border-width: 4px !important;
+    border-color: #FFFFFF !important;
+    box-shadow: 0 14px 36px rgba(184, 80, 66, 0.22), 0 0 0 1px rgba(227, 138, 44, 0.25) !important;
+    border-radius: 50% !important;
+    position: relative !important;
+    z-index: 5 !important;
   }
 
   .orbit-ring {
-    width: var(--orbit-size);
-    height: var(--orbit-size);
-    margin-top: calc(var(--orbit-size) / -2);
-    margin-left: calc(var(--orbit-size) / -2);
+    --orbit-size: clamp(280px, 78vw, 320px) !important;
+    width: var(--orbit-size) !important;
+    height: var(--orbit-size) !important;
+    margin-top: calc(var(--orbit-size) / -2) !important;
+    margin-left: calc(var(--orbit-size) / -2) !important;
+    border-color: rgba(227, 138, 44, 0.35) !important;
   }
 
   .orbit-node {
-    padding: 0.16rem 0.36rem;
-    font-size: clamp(0.44rem, 1.5vw, 0.54rem);
-    gap: 0.2rem;
-    white-space: nowrap;
+    padding: 0.28rem 0.6rem !important;
+    font-size: clamp(0.56rem, 1.8vw, 0.66rem) !important;
+    font-weight: 600 !important;
+    color: var(--color-charcoal) !important;
+    background: rgba(255, 255, 255, 0.94) !important;
+    border: 1px solid rgba(227, 138, 44, 0.38) !important;
+    box-shadow: 0 4px 14px rgba(44, 30, 20, 0.1) !important;
+    border-radius: 999px !important;
+    gap: 0.3rem !important;
+    white-space: nowrap !important;
   }
 
   .node-dot {
-    width: 4px;
-    height: 4px;
+    width: 6px !important;
+    height: 6px !important;
+    background: var(--color-saffron) !important;
   }
 
-  /* Keep orbit labels safely on-ring and never overflowing off screen or overlapping image */
-  .node-1 { top: 0%; left: 50%; }
-  .node-2 { top: 20%; right: -4%; }
-  .node-3 { bottom: 20%; right: -3%; }
-  .node-4 { bottom: 0%; left: 50%; }
-  .node-5 { bottom: 20%; left: -4%; }
-  .node-6 { top: 25%; left: -6%; }
+  /* Safe orbit node placement */
+  .node-1 { top: -4%; left: 50%; transform: translateX(-50%); }
+  .node-2 { top: 16%; right: -2%; }
+  .node-3 { bottom: 20%; right: -2%; }
+  .node-4 { bottom: -4%; left: 50%; transform: translateX(-50%); }
+  .node-5 { bottom: 20%; left: -2%; }
+  .node-6 { top: 16%; left: -2%; }
 
-  /* THE GRAND THALI SECTION (HERO INTERACTION 1) */
+  /* THE GRAND THALI SECTION (HERO INTERACTION 1) - FLUID & APPETIZING */
+  .exploded-thali-section {
+    padding: 3rem 0 2rem !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+
   .exploded-pin-container {
-    height: 100vh;
-    height: 100svh;
-    padding: clamp(3.6rem, 8vh, 4.4rem) 3vw 0.8rem !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 0 4vw !important;
     justify-content: flex-start !important;
-    gap: 0.25rem !important;
+    gap: 0.8rem !important;
     box-sizing: border-box !important;
+    position: relative !important;
   }
 
   .exploded-top-header {
-    margin-bottom: 0.25rem !important;
-    flex-shrink: 0 !important;
+    margin-bottom: 0.6rem !important;
+    text-align: center;
   }
 
   .exploded-main-title {
-    font-size: clamp(1.35rem, 4.8vw, 2.1rem) !important;
-    line-height: 1.12 !important;
+    font-size: clamp(1.55rem, 5.2vw, 2.2rem) !important;
+    line-height: 1.15 !important;
   }
 
   .scrub-instruction {
-    margin-top: 0.2rem !important;
-    padding: 0.22rem 0.7rem !important;
-    font-size: clamp(0.52rem, 1.7vw, 0.62rem) !important;
+    margin-top: 0.35rem !important;
+    padding: 0.3rem 0.85rem !important;
+    font-size: 0.64rem !important;
+    letter-spacing: 0.1em;
   }
 
   .exploded-stage-box {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: space-between !important;
+    justify-content: flex-start !important;
     width: 100% !important;
     max-width: 440px !important;
-    flex: 1 1 auto !important;
-    overflow: hidden !important;
+    height: auto !important;
     max-height: none !important;
-    margin: 0.2vh 0 !important;
-    border-radius: 18px !important;
-    padding: 0.4rem 0.4rem 0.5rem !important;
-    background: radial-gradient(circle at 50% 30%, #F5F1E8 0%, #EAE4D6 100%) !important;
+    margin: 0.4rem auto !important;
+    border-radius: 24px !important;
+    padding: 1.2rem 0.8rem 1.4rem !important;
+    background: radial-gradient(circle at 50% 35%, #FBF8F2 0%, #EDE6D8 100%) !important;
+    border: 1px solid rgba(227, 138, 44, 0.24) !important;
+    box-shadow: 0 12px 36px rgba(44, 30, 20, 0.08) !important;
     box-sizing: border-box !important;
   }
 
@@ -2479,13 +2528,11 @@ body.menu-locked {
     flex-shrink: 0 !important;
   }
 
-  .assembly-arena,
-  .samosa-stage-fallback,
-  .samosa-arena {
+  .assembly-arena {
     position: relative !important;
     width: 100% !important;
-    height: 240px !important;
-    min-height: 240px !important;
+    height: clamp(260px, 72vw, 290px) !important;
+    min-height: clamp(260px, 72vw, 290px) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -2494,39 +2541,125 @@ body.menu-locked {
     overflow: visible !important;
   }
 
-  /* Scale the plate to fit screen width, perfectly centered */
-  .thali-platter-base,
-  .samosa-platter-base {
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    margin-top: -240px !important;
-    margin-left: -240px !important;
-    width: 480px !important;
-    height: 480px !important;
-    transform: scale(0.48) !important;
-    transform-origin: center center !important;
+  /* Large, prominent circular white plate */
+  .thali-platter-base {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    margin: 0 auto !important;
+    width: clamp(255px, 70vw, 280px) !important;
+    height: clamp(255px, 70vw, 280px) !important;
+    transform: none !important;
+    border-radius: 50% !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12) !important;
     flex-shrink: 0 !important;
   }
 
-  /* 4 label cards in a tidy 2x2 grid below the plate */
+  .thali-plate-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  .thali-platter-base .katori-item {
+    position: absolute !important;
+    filter: drop-shadow(0 6px 12px rgba(44, 30, 20, 0.18)) !important;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .thali-platter-base .katori-dosa {
+    top: 50% !important;
+    left: 50% !important;
+    width: 58% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 4 !important;
+  }
+
+  .thali-platter-base .katori-sambar {
+    top: 14% !important;
+    left: 17% !important;
+    width: 27% !important;
+    z-index: 3 !important;
+  }
+
+  .thali-platter-base .katori-vada {
+    top: 14% !important;
+    right: 17% !important;
+    width: 30% !important;
+    z-index: 3 !important;
+  }
+
+  .thali-platter-base .katori-chutney {
+    bottom: 11% !important;
+    left: 50% !important;
+    width: 26% !important;
+    transform: translateX(-50%) !important;
+    z-index: 3 !important;
+  }
+
+  /* Assembly Integrity bar sits above cards with high polish */
+  .scrub-progress-hud {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 0.6rem auto 0.4rem !important;
+    padding: 0.35rem 0.85rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(227, 138, 44, 0.25) !important;
+    border-radius: 999px !important;
+    box-sizing: border-box !important;
+  }
+
+  .scrub-hud-track {
+    flex: 1 1 auto;
+    max-width: 130px;
+    height: 5px;
+    background: rgba(227, 138, 44, 0.2);
+    border-radius: 999px;
+    margin: 0 0.5rem;
+    overflow: hidden;
+  }
+
+  .scrub-hud-fill {
+    height: 100%;
+    width: 100%;
+    background: var(--color-thali);
+    border-radius: 999px;
+  }
+
+  .scrub-hud-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--color-charcoal);
+  }
+
+  .scrub-hud-val {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-thali);
+  }
+
+  /* 4 label cards in a tidy 2x2 grid below the plate with premium contrast */
   .thali-labels-container {
     position: relative !important;
     top: auto !important;
     left: auto !important;
     right: auto !important;
     bottom: auto !important;
-    width: 95% !important;
+    width: 100% !important;
     max-width: 350px !important;
     height: auto !important;
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 0.3rem !important;
-    margin: 0.25rem auto 0.15rem !important;
+    gap: 0.55rem !important;
+    margin: 0.6rem auto 1rem !important;
     padding: 0 !important;
     z-index: 15 !important;
-    pointer-events: none;
-    flex-shrink: 0 !important;
+    pointer-events: auto !important;
   }
 
   .thali-labels-container .pop-label-anchor {
@@ -2536,145 +2669,158 @@ body.menu-locked {
     right: auto !important;
     bottom: auto !important;
     transform: none !important;
-    opacity: 0.35;
-    transition: opacity 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+    opacity: 1 !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    margin: 0 !important;
-  }
-
-  .thali-labels-container .pop-label-anchor.label-visible {
-    opacity: 1;
-    transform: scale(1.02) !important;
+    cursor: pointer;
   }
 
   .thali-labels-container .label-pill {
-    padding: 0.28rem 0.45rem !important;
-    border-radius: 8px !important;
-    gap: 0.1rem;
-    box-shadow: 0 4px 12px rgba(227, 138, 44, 0.15);
+    padding: 0.6rem 0.65rem !important;
+    border-radius: 12px !important;
+    background: #FFFFFF !important;
+    border: 1px solid rgba(227, 138, 44, 0.3) !important;
+    box-shadow: 0 4px 14px rgba(44, 30, 20, 0.07) !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.15rem !important;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .thali-labels-container .label-pill:active,
+  .thali-labels-container .pop-label-anchor.active-focus .label-pill {
+    border-color: var(--color-thali) !important;
+    box-shadow: 0 6px 18px rgba(227, 138, 44, 0.25) !important;
+    transform: translateY(-2px);
   }
 
   .thali-labels-container .label-idx {
-    font-size: 0.55rem;
+    font-size: 0.62rem !important;
+    font-weight: 700 !important;
+    color: var(--color-saffron) !important;
+    letter-spacing: 0.05em;
   }
 
   .thali-labels-container .label-title {
-    font-size: clamp(0.66rem, 2vw, 0.76rem);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 0.76rem !important;
+    font-weight: 600 !important;
+    color: var(--color-charcoal) !important;
+    font-family: var(--font-serif) !important;
+    white-space: normal !important;
+    line-height: 1.15;
   }
 
   .thali-labels-container .label-desc {
-    font-size: 0.54rem;
-    line-height: 1.15;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-size: 0.58rem !important;
+    color: #6E675F !important;
+    line-height: 1.25 !important;
+    display: block !important;
   }
 
   .thali-labels-container .label-line {
     display: none !important;
   }
 
-  /* Assembly Integrity bar sits below the plate and fits screen width */
-  .scrub-progress-hud {
+  /* SAMOSA EXPLODED SECTION - CLEAN VERTICAL STACK WITH HIGH CONTRAST */
+  .exploded-samosa-section {
+    padding: 3rem 0 2rem !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  #street-food .exploded-pin-container {
+    height: auto !important;
+    min-height: auto !important;
+    padding: 0 4vw !important;
+  }
+
+  .samosa-stage-fallback,
+  .samosa-arena {
     position: relative !important;
-    bottom: auto !important;
-    left: auto !important;
-    transform: none !important;
-    width: 92% !important;
-    max-width: 320px !important;
-    margin: 0.2rem auto 0.1rem !important;
-    padding: 0.25rem 0.7rem !important;
+    width: 100% !important;
+    max-width: 360px !important;
+    height: 220px !important;
+    min-height: 220px !important;
+    margin: 0 auto !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 28px rgba(44, 30, 20, 0.1) !important;
     display: flex !important;
     align-items: center !important;
-    justify-content: space-between !important;
-    box-sizing: border-box !important;
-    flex-shrink: 0 !important;
+    justify-content: center !important;
   }
 
-  .scrub-hud-track {
-    flex: 1 1 auto;
-    max-width: 120px;
-    margin: 0 0.5rem;
-  }
-
-  .scrub-hud-label {
-    font-size: 0.58rem;
-    letter-spacing: 0.15em;
-  }
-
-  .scrub-hud-val {
-    font-size: 0.68rem;
-  }
-
-  /* SAMOSA EXPLODED SECTION */
-  .samosa-stage-fallback {
-    height: clamp(150px, 36vw, 195px);
-    min-height: clamp(150px, 36vw, 195px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: visible;
-  }
-
-  .samosa-platter-base {
-    width: 480px;
-    height: 480px;
-    transform: scale(calc(clamp(140px, 34vw, 185px) / 480)) !important;
-    transform-origin: center center;
-    flex-shrink: 0;
+  .samosa-hero-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 18px !important;
+    transform: none !important;
   }
 
   .samosa-labels-container {
     position: relative !important;
     top: auto !important;
     left: auto !important;
-    width: 95%;
-    max-width: 350px;
-    height: auto !important;
-    display: grid !important;
-    grid-template-columns: 1fr;
-    gap: 0.25rem;
-    margin: 0.2rem auto 0;
-    padding: 0;
-    z-index: 15;
-    pointer-events: none;
-    flex-shrink: 0 !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    max-width: 360px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.55rem !important;
+    margin: 1rem auto 1rem !important;
+    padding: 0 !important;
+    pointer-events: auto !important;
   }
 
   .samosa-labels-container .pop-label-anchor {
     position: relative !important;
     top: auto !important;
     left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
     transform: none !important;
-    opacity: 0.35;
-    transition: opacity 0.3s ease;
-  }
-
-  .samosa-labels-container .pop-label-anchor.label-visible {
-    opacity: 1;
+    opacity: 1 !important;
+    width: 100% !important;
   }
 
   .samosa-labels-container .label-pill {
-    padding: 0.28rem 0.55rem;
-    border-radius: 8px;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.45rem;
+    background: #FFFFFF !important;
+    border: 1px solid rgba(194, 59, 34, 0.25) !important;
+    box-shadow: 0 4px 14px rgba(44, 30, 20, 0.06) !important;
+    padding: 0.65rem 0.85rem !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.65rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .samosa-labels-container .label-idx {
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    color: var(--color-street) !important;
+    background: rgba(194, 59, 34, 0.1) !important;
+    padding: 0.2rem 0.45rem !important;
+    border-radius: 6px !important;
+    flex-shrink: 0;
   }
 
   .samosa-labels-container .label-title {
-    font-size: 0.74rem;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    color: var(--color-charcoal) !important;
+    font-family: var(--font-serif) !important;
   }
 
   .samosa-labels-container .label-desc {
-    font-size: 0.58rem;
+    font-size: 0.64rem !important;
+    color: #6E675F !important;
   }
 
   /* COFFEE SECTION */
@@ -2692,30 +2838,39 @@ body.menu-locked {
     padding: 0.7rem 0.9rem;
   }
 
-  /* SWEETS SECTION */
+  /* SWEETS SECTION - REMOVE DUPLICATE JALEBI ON MOBILE */
   .sweets-layout {
-    gap: 2.2rem;
+    gap: 2rem;
   }
 
   .sweets-header-row {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.8rem;
-    padding-bottom: 1.2rem;
+    padding-bottom: 1rem;
   }
 
-  .sweets-macro-video-box {
-    height: clamp(240px, 50vw, 340px);
+  .sweets-macro-showcase {
+    display: none !important; /* Hide duplicate macro video box so jalebi isn't shown twice */
   }
 
   .sweets-cards-track {
     grid-template-columns: 1fr;
-    gap: 1.4rem;
+    gap: 1.6rem;
   }
 
   .sweet-card {
     display: flex;
     flex-direction: column;
+    background: #FFFFFF;
+    border: 1px solid rgba(227, 138, 44, 0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(44, 30, 20, 0.06);
+  }
+
+  .sweet-img-box {
+    height: 220px;
   }
 
   .sweet-details {
@@ -2753,23 +2908,64 @@ body.menu-locked {
     padding: 1.4rem;
   }
 
-  /* TEXTURE GALLERY */
+  /* TEXTURE GALLERY - NATIVE TOUCH SWIPEABLE CAROUSEL (NO SCROLL-JACKING) */
   .gallery-pin-wrapper {
-    padding: 2vh 0;
+    position: relative !important;
+    height: auto !important;
+    padding: 2.5rem 0 3rem !important;
+    overflow: visible !important;
   }
 
   .gallery-header-sticky {
-    padding: 0 5vw 1.2rem;
+    position: relative !important;
+    top: auto !important;
+    padding: 0 5vw 1.2rem !important;
+  }
+
+  .gallery-stage-window {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-snap-type: x mandatory !important;
+    padding: 0.5rem 5vw 1.5rem !important;
+    scrollbar-width: none !important;
+    display: flex !important;
+  }
+
+  .gallery-stage-window::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .gallery-scroll-strip {
+    display: flex !important;
+    gap: 1.2rem !important;
+    transform: none !important;
+    width: max-content !important;
   }
 
   .gallery-item-card {
-    width: clamp(260px, 78vw, 340px);
-    height: clamp(340px, 60vh, 440px);
-    border-radius: 18px;
+    scroll-snap-align: center !important;
+    flex-shrink: 0 !important;
+    width: clamp(260px, 78vw, 320px) !important;
+    height: clamp(360px, 62vh, 420px) !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    box-shadow: 0 12px 32px rgba(44, 30, 20, 0.1) !important;
+  }
+
+  .gallery-item-card .card-inner-img {
+    height: 100% !important;
+  }
+
+  .gallery-photo {
+    transform: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
   }
 
   .poster-card {
-    width: clamp(250px, 72vw, 320px);
+    width: clamp(250px, 72vw, 300px) !important;
   }
 
   .gallery-caption-overlay {
@@ -2853,130 +3049,99 @@ body.menu-locked {
 /* Compact Smartphones (<= 430px) */
 @media (max-width: 430px) {
   .site-header {
-    padding: 0.75rem 1rem;
+    padding: 0.65rem 0.85rem;
   }
 
   .brand-primary {
-    font-size: 1.08rem;
+    font-size: 1.05rem;
   }
 
   .brand-sub {
-    font-size: 0.52rem;
+    font-size: 0.5rem;
     letter-spacing: 0.12em;
   }
 
   .header-actions {
-    gap: 0.45rem;
+    gap: 0.4rem;
   }
 
   .nav-btn {
-    padding: 0.5rem 0.8rem;
+    padding: 0.45rem 0.75rem;
     font-size: 0.68rem;
     letter-spacing: 0.08em;
+    white-space: nowrap;
   }
 
   .mobile-menu-btn {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
   }
 
   .sound-toggle {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     padding: 0;
   }
 
   .hero-content {
-    padding: 0 3vw;
+    padding: 0 4vw;
   }
 
-  .thali-labels-container {
-    gap: 0.25rem;
-  }
-
-  .thali-labels-container .label-pill {
-    padding: 0.25rem 0.4rem;
-  }
-
-  .thali-labels-container .label-title {
-    font-size: 0.7rem;
-  }
-
-  .thali-labels-container .label-desc {
-    font-size: 0.52rem;
-  }
-
-  .assembly-arena,
-  .samosa-stage-fallback,
-  .samosa-arena {
-    height: 180px !important;
-    min-height: 180px !important;
-  }
-
-  .thali-platter-base,
-  .samosa-platter-base {
-    transform: scale(0.36) !important;
+  .hero-kicker-pill {
+    font-size: 0.65rem;
+    padding: 0.35rem 0.8rem;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.3;
   }
 }
 
 /* Extra-narrow screens (<= 360px — zero horizontal overflow) */
 @media (max-width: 360px) {
   .site-header {
-    padding: 0.65rem 0.75rem;
+    padding: 0.55rem 0.65rem;
   }
 
   .brand-primary {
-    font-size: 0.98rem;
+    font-size: 0.95rem;
   }
 
   .brand-sub {
-    font-size: 0.48rem;
+    font-size: 0.46rem;
   }
 
   .nav-btn {
-    padding: 0.45rem 0.65rem;
-    font-size: 0.65rem;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.64rem;
   }
 
   .header-actions {
-    gap: 0.35rem;
+    gap: 0.3rem;
   }
 
   .hero-title {
     font-size: 2.15rem;
   }
 
-  .orbit-interactive-stage {
-    height: 310px;
-  }
-
-  .assembly-arena,
-  .samosa-stage-fallback,
-  .samosa-arena {
-    height: 150px !important;
-    min-height: 150px !important;
-  }
-
-  .thali-platter-base,
-  .samosa-platter-base {
-    transform: scale(0.29) !important;
-  }
-
   .thali-labels-container {
-    width: 98%;
+    gap: 0.35rem !important;
   }
 
   .thali-labels-container .label-pill {
-    padding: 0.22rem 0.35rem;
+    padding: 0.45rem 0.5rem !important;
   }
 
   .thali-labels-container .label-title {
-    font-size: 0.66rem;
+    font-size: 0.72rem !important;
+  }
+
+  .thali-labels-container .label-desc {
+    font-size: 0.55rem !important;
   }
 
   .scrub-progress-hud {
-    width: 96%;
-    padding: 0.25rem 0.5rem;
+    width: 96% !important;
+    padding: 0.25rem 0.5rem !important;
   }
 
   .scrub-hud-track {

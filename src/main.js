@@ -32,11 +32,11 @@ gsap.ticker.lagSmoothing(0);
    ========================================================================== */
 const cursorDot = document.getElementById('cursorDot');
 const cursorRing = document.getElementById('cursorRing');
-const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches && window.innerWidth > 900;
 
 if (!isFinePointer) {
-  if (cursorDot) cursorDot.style.display = 'none';
-  if (cursorRing) cursorRing.style.display = 'none';
+  cursorDot?.remove();
+  cursorRing?.remove();
 } else {
   let mouseX = window.innerWidth / 2;
   let mouseY = window.innerHeight / 2;
@@ -286,9 +286,10 @@ orbitTl.to('.orbit-node', {
 }, 0);
 
 /* ==========================================================================
-   7. D1. "WHAT WE SERVE" — THE EXPLODED THALI (PINNED SCRUB HERO INTERACTION)
+   7. D1. "WHAT WE SERVE" — THE EXPLODED THALI (PINNED ON DESKTOP, FLUID ON MOBILE)
    ========================================================================== */
 function setupExplodedThali() {
+  const isMobile = window.innerWidth <= 768;
   const thaliVideo = document.getElementById('explodedThaliVideo');
   const progressFill = document.getElementById('thaliProgressFill');
   const progressVal = document.getElementById('thaliProgressVal');
@@ -303,8 +304,60 @@ function setupExplodedThali() {
   const katoriVada = document.getElementById('katoriVada');
   const katoriChutney = document.getElementById('katoriChutney');
 
-  // Ensure video metadata is loaded or ready
-  let videoDuration = 5; // default fallback seconds
+  if (isMobile) {
+    // Mobile: Natural fluid scroll, ZERO pin hijacking!
+    // As the section enters view, smoothly assemble into the platter
+    ScrollTrigger.create({
+      trigger: '#thali',
+      start: 'top 80%',
+      once: true,
+      onEnter: () => {
+        const tl = gsap.timeline();
+        tl.fromTo([katoriDosa, katoriSambar, katoriVada, katoriChutney], 
+          { scale: 0.85, opacity: 0.7 },
+          { scale: 1, opacity: 1, duration: 0.7, stagger: 0.1, ease: 'back.out(1.4)' }
+        );
+        tl.to([labelDosa, labelSambar, labelVada, labelChutney], {
+          opacity: 1,
+          stagger: 0.08,
+          duration: 0.4,
+          onStart: () => {
+            labelDosa?.classList.add('label-visible');
+            labelSambar?.classList.add('label-visible');
+            labelVada?.classList.add('label-visible');
+            labelChutney?.classList.add('label-visible');
+          }
+        }, '-=0.3');
+        if (progressFill) progressFill.style.width = '100%';
+        if (progressVal) progressVal.textContent = '100%';
+      }
+    });
+
+    // Touch interactivity: tap card to highlight corresponding food item
+    const pairs = [
+      { card: labelDosa, item: katoriDosa },
+      { card: labelSambar, item: katoriSambar },
+      { card: labelVada, item: katoriVada },
+      { card: labelChutney, item: katoriChutney }
+    ];
+
+    pairs.forEach(({ card, item }) => {
+      if (!card || !item) return;
+      card.style.pointerEvents = 'auto';
+      card.addEventListener('click', () => {
+        pairs.forEach(p => p.card?.classList.remove('active-focus'));
+        card.classList.add('active-focus');
+        gsap.timeline()
+          .to(item, { scale: 1.18, duration: 0.18, ease: 'power2.out' })
+          .to(item, { scale: 1, duration: 0.22, ease: 'bounce.out' });
+      });
+    });
+
+    return;
+  }
+
+  // Desktop: scrub & pin
+  let videoDuration = 5;
   if (thaliVideo) {
     thaliVideo.addEventListener('loadedmetadata', () => {
       if (thaliVideo.duration && !isNaN(thaliVideo.duration)) {
@@ -322,13 +375,10 @@ function setupExplodedThali() {
     onUpdate: (self) => {
       const p = self.progress;
 
-      // 1. Bind video currentTime = progress * duration
       if (thaliVideo && thaliVideo.readyState >= 1) {
         thaliVideo.currentTime = p * (thaliVideo.duration || videoDuration);
       }
 
-      // 2. Fallback Interactive Arena Animation:
-      // In exploded state (p near 0), dishes fly outward; as p approaches 1, dishes settle into platter!
       const explodeFactor = (1 - p);
       if (katoriDosa) {
         gsap.set(katoriDosa, {
@@ -363,7 +413,6 @@ function setupExplodedThali() {
         });
       }
 
-      // 3. Staggered Pop Labels in Saffron Orange as food items settle
       if (p > 0.3) labelDosa?.classList.add('label-visible');
       else labelDosa?.classList.remove('label-visible');
 
@@ -376,7 +425,6 @@ function setupExplodedThali() {
       if (p > 0.85) labelChutney?.classList.add('label-visible');
       else labelChutney?.classList.remove('label-visible');
 
-      // 4. Update HUD Progress
       const pct = Math.round(p * 100);
       if (progressFill) progressFill.style.width = `${pct}%`;
       if (progressVal) progressVal.textContent = `${pct}%`;
@@ -389,6 +437,7 @@ setupExplodedThali();
    8. D2. THE EXPLODED SCROLL MOMENT (HERO INTERACTION 2: SAMOSA)
    ========================================================================== */
 function setupExplodedSamosa() {
+  const isMobile = window.innerWidth <= 768;
   const samosaVideo = document.getElementById('explodedSamosaVideo');
   const progressFill = document.getElementById('samosaProgressFill');
   const progressVal = document.getElementById('samosaProgressVal');
@@ -398,6 +447,27 @@ function setupExplodedSamosa() {
   const labelMintDip = document.getElementById('labelMintDip');
   const samosaHeroImg = document.getElementById('samosaHeroImg');
 
+  if (isMobile) {
+    // Mobile: Natural fluid scroll, NO pin locking!
+    ScrollTrigger.create({
+      trigger: '#street-food',
+      start: 'top 80%',
+      once: true,
+      onEnter: () => {
+        labelPastry?.classList.add('label-visible');
+        labelCore?.classList.add('label-visible');
+        labelMintDip?.classList.add('label-visible');
+        if (progressFill) progressFill.style.width = '100%';
+        if (progressVal) progressVal.textContent = '100%';
+        if (samosaHeroImg) {
+          gsap.fromTo(samosaHeroImg, { scale: 0.94 }, { scale: 1, duration: 0.8, ease: 'power2.out' });
+        }
+      }
+    });
+    return;
+  }
+
+  // Desktop scrub & pin
   let videoDuration = 4;
   if (samosaVideo) {
     samosaVideo.addEventListener('loadedmetadata', () => {
@@ -416,13 +486,10 @@ function setupExplodedSamosa() {
     onUpdate: (self) => {
       const p = self.progress;
 
-      // Bind video scrub
       if (samosaVideo && samosaVideo.readyState >= 1) {
         samosaVideo.currentTime = p * (samosaVideo.duration || videoDuration);
       }
 
-      // Fallback graphic dynamics
-      const explodeFactor = (1 - p);
       if (samosaHeroImg) {
         gsap.set(samosaHeroImg, {
           scale: 0.9 + (p * 0.15),
@@ -430,7 +497,6 @@ function setupExplodedSamosa() {
         });
       }
 
-      // Pop labels in Chili Red
       if (p > 0.35) labelPastry?.classList.add('label-visible');
       else labelPastry?.classList.remove('label-visible');
 
@@ -506,6 +572,10 @@ gsap.from('#matchaCard', {
    11. G. INGREDIENT / TEXTURE GALLERY (HORIZONTAL SCROLL)
    ========================================================================== */
 function setupHorizontalGallery() {
+  if (window.innerWidth <= 900) {
+    // On mobile, use native touch carousel swipe - no scroll-jacking!
+    return;
+  }
   const strip = document.getElementById('horizontalStrip');
   if (!strip) return;
 

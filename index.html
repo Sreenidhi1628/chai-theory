@@ -68,6 +68,32 @@
           <span>RESERVE TABLE</span>
           <div class="btn-fill"></div>
         </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Full-screen / Slide-down Mobile Navigation Drawer (<900px) -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+      <div class="mobile-nav-content">
+        <div class="mobile-nav-kicker">CURATED EXPERIENCES</div>
+        <nav class="mobile-nav-list">
+          <a href="#hero" class="mobile-nav-link"><span class="m-nav-num">00</span>HOME</a>
+          <a href="#coffee" class="mobile-nav-link"><span class="m-nav-num">01</span>FILTER COFFEE</a>
+          <a href="#spices" class="mobile-nav-link"><span class="m-nav-num">02</span>BOTANICAL ORBIT</a>
+          <a href="#thali" class="mobile-nav-link"><span class="m-nav-num">03</span>THE GRAND THALI</a>
+          <a href="#street-food" class="mobile-nav-link"><span class="m-nav-num">04</span>STREET FOOD</a>
+          <a href="#sweets" class="mobile-nav-link"><span class="m-nav-num">05</span>OUR SWEETS</a>
+          <a href="#fusion" class="mobile-nav-link"><span class="m-nav-num">06</span>FUSION</a>
+          <a href="#gallery" class="mobile-nav-link"><span class="m-nav-num">07</span>TEXTURES</a>
+        </nav>
+        <div class="mobile-nav-footer">
+          <a href="#cta" class="mobile-nav-cta" id="mobileNavReserveBtn">RESERVE A TABLE →</a>
+          <div class="mobile-nav-credits">BUILT BY SREENIDHI · EST. 2026</div>
+        </div>
       </div>
     </div>
   </header>
@@ -132,7 +158,7 @@
             </video>
             <!-- Graceful warm-white placeholder -->
             <div class="warm-white-fallback coffee-fallback" data-label="filter-coffee-pour.mp4">
-              <img src="/assets/photos/img-filter-coffee.jpg" alt="South Indian Filter Coffee" class="fallback-img">
+              <img src="/assets/photos/img-filter-coffee.jpg" alt="South Indian Filter Coffee" class="fallback-img" loading="lazy" decoding="async">
               <div class="decoction-pour-graphic">
                 <div class="pour-stream"></div>
                 <div class="froth-bubble-cluster"></div>
@@ -273,41 +299,43 @@
             </div>
           </div>
 
-          <!-- Staggered Saffron Pop Labels that pop when settling -->
-          <div class="pop-label-anchor label-dosa" id="labelDosa">
-            <div class="label-pill">
-              <span class="label-idx">01</span>
-              <span class="label-title">MASALA DOSA</span>
-              <span class="label-desc">Ghee-Crisped Fermented Rice Crepe</span>
+          <!-- Staggered Saffron Pop Labels that pop when settling (desktop: floating, mobile: 2x2 grid) -->
+          <div class="thali-labels-container" id="thaliLabelsContainer">
+            <div class="pop-label-anchor label-dosa" id="labelDosa">
+              <div class="label-pill">
+                <span class="label-idx">01</span>
+                <span class="label-title">MASALA DOSA</span>
+                <span class="label-desc">Ghee-Crisped Fermented Rice Crepe</span>
+              </div>
+              <div class="label-line"></div>
             </div>
-            <div class="label-line"></div>
-          </div>
 
-          <div class="pop-label-anchor label-sambar" id="labelSambar">
-            <div class="label-pill">
-              <span class="label-idx">02</span>
-              <span class="label-title">DRUMSTICK SAMBAR</span>
-              <span class="label-desc">Slow-Simmered Toor Dal &amp; Tamarind</span>
+            <div class="pop-label-anchor label-sambar" id="labelSambar">
+              <div class="label-pill">
+                <span class="label-idx">02</span>
+                <span class="label-title">DRUMSTICK SAMBAR</span>
+                <span class="label-desc">Slow-Simmered Toor Dal &amp; Tamarind</span>
+              </div>
+              <div class="label-line"></div>
             </div>
-            <div class="label-line"></div>
-          </div>
 
-          <div class="pop-label-anchor label-vada" id="labelVada">
-            <div class="label-pill">
-              <span class="label-idx">03</span>
-              <span class="label-title">MEDU VADA</span>
-              <span class="label-desc">Black Lentil Golden Donut Fritter</span>
+            <div class="pop-label-anchor label-vada" id="labelVada">
+              <div class="label-pill">
+                <span class="label-idx">03</span>
+                <span class="label-title">MEDU VADA</span>
+                <span class="label-desc">Black Lentil Golden Donut Fritter</span>
+              </div>
+              <div class="label-line"></div>
             </div>
-            <div class="label-line"></div>
-          </div>
 
-          <div class="pop-label-anchor label-chutney" id="labelChutney">
-            <div class="label-pill">
-              <span class="label-idx">04</span>
-              <span class="label-title">COCONUT CHUTNEY</span>
-              <span class="label-desc">Fresh Grated with Mustard &amp; Curry Leaves</span>
+            <div class="pop-label-anchor label-chutney" id="labelChutney">
+              <div class="label-pill">
+                <span class="label-idx">04</span>
+                <span class="label-title">COCONUT CHUTNEY</span>
+                <span class="label-desc">Fresh Grated with Mustard &amp; Curry Leaves</span>
+              </div>
+              <div class="label-line"></div>
             </div>
-            <div class="label-line"></div>
           </div>
 
           <!-- Scroll Progress Tracker Bar -->
@@ -354,28 +382,30 @@
             </div>
           </div>
 
-          <!-- Pop Labels in Chili Red -->
-          <div class="pop-label-anchor label-samosa-pastry" id="labelPastry">
-            <div class="label-pill pill-chili">
-              <span class="label-idx">A</span>
-              <span class="label-title">AJWAIN SHORT-CRUST</span>
-              <span class="label-desc">Flaky carom seed pastry shell</span>
+          <!-- Pop Labels in Chili Red (desktop: floating, mobile: stacked/clean grid) -->
+          <div class="samosa-labels-container" id="samosaLabelsContainer">
+            <div class="pop-label-anchor label-samosa-pastry" id="labelPastry">
+              <div class="label-pill pill-chili">
+                <span class="label-idx">A</span>
+                <span class="label-title">AJWAIN SHORT-CRUST</span>
+                <span class="label-desc">Flaky carom seed pastry shell</span>
+              </div>
             </div>
-          </div>
 
-          <div class="pop-label-anchor label-samosa-core" id="labelCore">
-            <div class="label-pill pill-chili">
-              <span class="label-idx">B</span>
-              <span class="label-title">ROASTED POTATO &amp; PEA</span>
-              <span class="label-desc">Pounded coriander, ginger &amp; green chili</span>
+            <div class="pop-label-anchor label-samosa-core" id="labelCore">
+              <div class="label-pill pill-chili">
+                <span class="label-idx">B</span>
+                <span class="label-title">ROASTED POTATO &amp; PEA</span>
+                <span class="label-desc">Pounded coriander, ginger &amp; green chili</span>
+              </div>
             </div>
-          </div>
 
-          <div class="pop-label-anchor label-samosa-chutney" id="labelMintDip">
-            <div class="label-pill pill-chili">
-              <span class="label-idx">C</span>
-              <span class="label-title">MINT-TAMARIND DICHOTOMY</span>
-              <span class="label-desc">Sweet jaggery against raw crushed mint</span>
+            <div class="pop-label-anchor label-samosa-chutney" id="labelMintDip">
+              <div class="label-pill pill-chili">
+                <span class="label-idx">C</span>
+                <span class="label-title">MINT-TAMARIND DICHOTOMY</span>
+                <span class="label-desc">Sweet jaggery against raw crushed mint</span>
+              </div>
             </div>
           </div>
 
@@ -416,7 +446,7 @@
             </video>
             <!-- Graceful fallback -->
             <div class="warm-white-fallback sweets-fallback" data-label="sweets-macro.mp4">
-              <img src="/assets/photos/img-jalebi.jpg" alt="Macro Sweets Glistening" class="fallback-img">
+              <img src="/assets/photos/img-jalebi.jpg" alt="Macro Sweets Glistening" class="fallback-img" loading="lazy" decoding="async">
             </div>
             <div class="macro-hud-tag">MACRO 100mm T2.9 · SYRUP SURFACE TENSION</div>
           </div>
@@ -426,7 +456,7 @@
         <div class="sweets-cards-track" id="sweetsTrack">
           <div class="sweet-card" id="sweetCard1">
             <div class="sweet-img-box">
-              <img src="/assets/photos/img-jalebi.jpg" alt="Golden Saffron Jalebi" class="sweet-img">
+              <img src="/assets/photos/img-jalebi.jpg" alt="Golden Saffron Jalebi" class="sweet-img" loading="lazy" decoding="async">
               <span class="sweet-pill">HOT OFF THE KADHAI</span>
             </div>
             <div class="sweet-details">
@@ -442,7 +472,7 @@
 
           <div class="sweet-card" id="sweetCard2">
             <div class="sweet-img-box">
-              <img src="/assets/photos/img-gulab-jamun.jpg" alt="Rose Petal Gulab Jamun" class="sweet-img">
+              <img src="/assets/photos/img-gulab-jamun.jpg" alt="Rose Petal Gulab Jamun" class="sweet-img" loading="lazy" decoding="async">
               <span class="sweet-pill">WARM CARDAMOM SYRUP</span>
             </div>
             <div class="sweet-details">
@@ -479,7 +509,7 @@
           <!-- Side A: Mango Lassi -->
           <div class="fusion-card mango-side" id="mangoCard">
             <div class="fusion-img-wrap">
-              <img src="/assets/photos/img-mango-lassi.jpg" alt="Creamy Mango Lassi" class="fusion-img">
+              <img src="/assets/photos/img-mango-lassi.jpg" alt="Creamy Mango Lassi" class="fusion-img" loading="lazy" decoding="async">
               <div class="flavor-tag tag-mango">RATNAGIRI ALPHONSO</div>
             </div>
             <div class="fusion-info">
@@ -502,7 +532,7 @@
               </video>
               <!-- Graceful fallback -->
               <div class="warm-white-fallback fusion-fallback" data-label="lassi-matcha-pour.mp4">
-                <img src="/assets/photos/img-matcha-latte.jpg" alt="Matcha Chai Layered Pour" class="fallback-img">
+                <img src="/assets/photos/img-matcha-latte.jpg" alt="Matcha Chai Layered Pour" class="fallback-img" loading="lazy" decoding="async">
               </div>
               <div class="pour-stream-indicator">DUAL POUR · 4°C SERVE</div>
             </div>
@@ -511,7 +541,7 @@
           <!-- Side B: Matcha Chai Fusion -->
           <div class="fusion-card matcha-side" id="matchaCard">
             <div class="fusion-img-wrap">
-              <img src="/assets/photos/img-matcha-latte.jpg" alt="Matcha Chai Fusion Latte" class="fusion-img">
+              <img src="/assets/photos/img-matcha-latte.jpg" alt="Matcha Chai Fusion Latte" class="fusion-img" loading="lazy" decoding="async">
               <div class="flavor-tag tag-matcha">UJI CEREMONIAL · GRADE A</div>
             </div>
             <div class="fusion-info">
@@ -546,7 +576,7 @@
           <!-- Slide 1 -->
           <div class="gallery-item-card" data-caption="CRISP">
             <div class="card-inner-img">
-              <img src="/assets/photos/img-samosa.jpg" alt="Crispy Pastry" class="gallery-photo">
+              <img src="/assets/photos/img-samosa.jpg" alt="Crispy Pastry" class="gallery-photo" loading="lazy" decoding="async">
             </div>
             <div class="gallery-caption-overlay">
               <span class="caption-tag">TEXTURE 01</span>
@@ -558,7 +588,7 @@
           <!-- Slide 2 -->
           <div class="gallery-item-card" data-caption="CRUNCH">
             <div class="card-inner-img">
-              <img src="/assets/photos/img-pani-puri.jpg" alt="Pani Puri Crunch" class="gallery-photo">
+              <img src="/assets/photos/img-pani-puri.jpg" alt="Pani Puri Crunch" class="gallery-photo" loading="lazy" decoding="async">
             </div>
             <div class="gallery-caption-overlay">
               <span class="caption-tag">TEXTURE 02</span>
@@ -570,7 +600,7 @@
           <!-- Slide 3 -->
           <div class="gallery-item-card" data-caption="AROMA">
             <div class="card-inner-img">
-              <img src="/assets/photos/img-spices-flatlay.jpg" alt="Spice Aromatic Flatlay" class="gallery-photo">
+              <img src="/assets/photos/img-spices-flatlay.jpg" alt="Spice Aromatic Flatlay" class="gallery-photo" loading="lazy" decoding="async">
             </div>
             <div class="gallery-caption-overlay">
               <span class="caption-tag">TEXTURE 03</span>
@@ -582,7 +612,7 @@
           <!-- Slide 4 -->
           <div class="gallery-item-card" data-caption="ORIGIN">
             <div class="card-inner-img">
-              <img src="/assets/photos/img-tea-leaves.jpg" alt="CTC Loose Tea Leaves" class="gallery-photo">
+              <img src="/assets/photos/img-tea-leaves.jpg" alt="CTC Loose Tea Leaves" class="gallery-photo" loading="lazy" decoding="async">
             </div>
             <div class="gallery-caption-overlay">
               <span class="caption-tag">TEXTURE 04</span>
@@ -594,7 +624,7 @@
           <!-- Slide 5 -->
           <div class="gallery-item-card" data-caption="RITUAL">
             <div class="card-inner-img">
-              <img src="/assets/photos/img-cutting-chai.jpg" alt="Mumbai Cutting Glasses" class="gallery-photo">
+              <img src="/assets/photos/img-cutting-chai.jpg" alt="Mumbai Cutting Glasses" class="gallery-photo" loading="lazy" decoding="async">
             </div>
             <div class="gallery-caption-overlay">
               <span class="caption-tag">TEXTURE 05</span>
@@ -606,7 +636,7 @@
           <!-- Slide 6 (Poster Feature) -->
           <div class="gallery-item-card poster-card" data-caption="IDENTITY">
             <div class="card-inner-img">
-              <img src="/assets/photos/img-poster.jpg" alt="Chai Theory Brand Poster" class="gallery-photo">
+              <img src="/assets/photos/img-poster.jpg" alt="Chai Theory Brand Poster" class="gallery-photo" loading="lazy" decoding="async">
             </div>
             <div class="gallery-caption-overlay">
               <span class="caption-tag">IDENTITY</span>

@@ -28,71 +28,75 @@ gsap.ticker.add((time) => {
 gsap.ticker.lagSmoothing(0);
 
 /* ==========================================================================
-   2. CUSTOM RING CURSOR & MAGNETIC MICRO-INTERACTIONS
+   2. CUSTOM RING CURSOR & MAGNETIC MICRO-INTERACTIONS (FINE POINTERS ONLY)
    ========================================================================== */
 const cursorDot = document.getElementById('cursorDot');
 const cursorRing = document.getElementById('cursorRing');
+const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
-let ringX = mouseX;
-let ringY = mouseY;
+if (!isFinePointer) {
+  if (cursorDot) cursorDot.style.display = 'none';
+  if (cursorRing) cursorRing.style.display = 'none';
+} else {
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let ringX = mouseX;
+  let ringY = mouseY;
 
-window.addEventListener('mousemove', (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
 
-  // Move dot immediately
-  if (cursorDot) {
-    cursorDot.style.left = `${mouseX}px`;
-    cursorDot.style.top = `${mouseY}px`;
-  }
-});
-
-// Smooth RAF for cursor ring
-function renderCursor() {
-  ringX += (mouseX - ringX) * 0.18;
-  ringY += (mouseY - ringY) * 0.18;
-
-  if (cursorRing) {
-    cursorRing.style.left = `${ringX}px`;
-    cursorRing.style.top = `${ringY}px`;
-  }
-
-  requestAnimationFrame(renderCursor);
-}
-renderCursor();
-
-// Magnetic Targets and hover effects
-const magneticTargets = document.querySelectorAll('.magnetic-target, a, button');
-magneticTargets.forEach((el) => {
-  el.addEventListener('mouseenter', () => {
-    cursorRing?.classList.add('cursor-hover');
+    if (cursorDot) {
+      cursorDot.style.left = `${mouseX}px`;
+      cursorDot.style.top = `${mouseY}px`;
+    }
   });
 
-  el.addEventListener('mouseleave', () => {
-    cursorRing?.classList.remove('cursor-hover');
-    gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'power2.out' });
-  });
+  function renderCursor() {
+    ringX += (mouseX - ringX) * 0.18;
+    ringY += (mouseY - ringY) * 0.18;
 
-  el.addEventListener('mousemove', (e) => {
-    const rect = el.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const deltaX = (e.clientX - centerX) * 0.22;
-    const deltaY = (e.clientY - centerY) * 0.22;
+    if (cursorRing) {
+      cursorRing.style.left = `${ringX}px`;
+      cursorRing.style.top = `${ringY}px`;
+    }
 
-    gsap.to(el, {
-      x: deltaX,
-      y: deltaY,
-      duration: 0.2,
-      ease: 'power1.out',
+    requestAnimationFrame(renderCursor);
+  }
+  renderCursor();
+
+  // Magnetic Targets and hover effects
+  const magneticTargets = document.querySelectorAll('.magnetic-target, a, button');
+  magneticTargets.forEach((el) => {
+    el.addEventListener('mouseenter', () => {
+      cursorRing?.classList.add('cursor-hover');
+    });
+
+    el.addEventListener('mouseleave', () => {
+      cursorRing?.classList.remove('cursor-hover');
+      gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'power2.out' });
+    });
+
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const deltaX = (e.clientX - centerX) * 0.22;
+      const deltaY = (e.clientY - centerY) * 0.22;
+
+      gsap.to(el, {
+        x: deltaX,
+        y: deltaY,
+        duration: 0.2,
+        ease: 'power1.out',
+      });
     });
   });
-});
 
-window.addEventListener('mousedown', () => cursorRing?.classList.add('cursor-active'));
-window.addEventListener('mouseup', () => cursorRing?.classList.remove('cursor-active'));
+  window.addEventListener('mousedown', () => cursorRing?.classList.add('cursor-active'));
+  window.addEventListener('mouseup', () => cursorRing?.classList.remove('cursor-active'));
+}
 
 /* ==========================================================================
    3. A. PRELOADER SEQUENCE (<1.5s)
@@ -141,7 +145,19 @@ function runPreloader() {
   tl.to({}, { duration: 0.1 });
 }
 
-window.addEventListener('DOMContentLoaded', runPreloader);
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', runPreloader);
+} else {
+  runPreloader();
+}
+
+// Fallback guarantee: dismiss preloader after 1.8s regardless of animation state
+setTimeout(() => {
+  if (preloader && preloader.style.display !== 'none') {
+    preloader.style.display = 'none';
+    initHeroAnimations();
+  }
+}, 1800);
 
 /* ==========================================================================
    4. B. HERO SECTION ANIMATIONS
@@ -569,9 +585,67 @@ modalBackdrop?.addEventListener('click', closeModal);
 modalCloseBtn?.addEventListener('click', closeModal);
 
 window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && reserveModal?.classList.contains('modal-open')) {
-    closeModal();
+  if (e.key === 'Escape') {
+    if (reserveModal?.classList.contains('modal-open')) closeModal();
+    if (mobileNavDrawer?.classList.contains('nav-open')) closeMobileMenu();
   }
+});
+
+/* Mobile Nav Drawer Handlers (<900px) */
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileNavDrawer = document.getElementById('mobileNavDrawer');
+const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+const mobileNavReserveBtn = document.getElementById('mobileNavReserveBtn');
+
+function openMobileMenu() {
+  mobileNavDrawer?.classList.add('nav-open');
+  mobileMenuBtn?.classList.add('is-active');
+  mobileMenuBtn?.setAttribute('aria-expanded', 'true');
+  mobileNavDrawer?.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('menu-locked');
+  lenis.stop();
+}
+
+function closeMobileMenu() {
+  mobileNavDrawer?.classList.remove('nav-open');
+  mobileMenuBtn?.classList.remove('is-active');
+  mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+  mobileNavDrawer?.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('menu-locked');
+  lenis.start();
+}
+
+mobileMenuBtn?.addEventListener('click', () => {
+  const isOpen = mobileNavDrawer?.classList.contains('nav-open');
+  if (isOpen) {
+    closeMobileMenu();
+  } else {
+    openMobileMenu();
+  }
+});
+
+mobileNavLinks.forEach((link) => {
+  link.addEventListener('click', (e) => {
+    const targetId = link.getAttribute('href');
+    closeMobileMenu();
+    if (targetId && targetId.startsWith('#')) {
+      e.preventDefault();
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        setTimeout(() => {
+          lenis.scrollTo(targetEl, { offset: -60, duration: 1.2 });
+        }, 200);
+      }
+    }
+  });
+});
+
+mobileNavReserveBtn?.addEventListener('click', (e) => {
+  e.preventDefault();
+  closeMobileMenu();
+  setTimeout(() => {
+    openModal();
+  }, 250);
 });
 
 // Form submission celebratory confetti
@@ -687,6 +761,10 @@ document.querySelectorAll('video').forEach((vid) => {
       gsap.to(fallback, { opacity: 0, duration: 0.4, pointerEvents: 'none' });
     }
   });
+});
+
+window.addEventListener('resize', () => {
+  ScrollTrigger.refresh();
 });
 
 console.log('🍵 Chai Theory — Built By Sreenidhi initialized.');
